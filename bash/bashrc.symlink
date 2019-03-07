@@ -1,0 +1,169 @@
+#   __                            __
+#  |  \                          |  \
+#  | $$____    ______    _______ | $$____    ______    _______
+#  | $$    \  |      \  /       \| $$    \  /      \  /       \
+#  | $$$$$$$\  \$$$$$$\|  $$$$$$$| $$$$$$$\|  $$$$$$\|  $$$$$$$
+#  | $$  | $$ /      $$ \$$    \ | $$  | $$| $$   \$$| $$
+#  | $$__/ $$|  $$$$$$$ _\$$$$$$\| $$  | $$| $$      | $$_____
+#  | $$    $$ \$$    $$|       $$| $$  | $$| $$       \$$     \
+#   \$$$$$$$   \$$$$$$$ \$$$$$$$  \$$   \$$ \$$        \$$$$$$$
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# show punk girl art at start of session
+cat "$HOME/.punk_gurl"
+echo ""
+echo ""
+
+# ========================
+# Environmental Variables
+# ========================
+
+export HOMEBREW_EDITOR=vim
+export NODE_REPL_HISTORY_FILE=~/.node_repl_history
+
+# =================
+# Settings
+# =================
+
+# Prefer US English
+export LC_ALL="en_US.UTF-8"
+# use UTF-8
+export LANG="en_US"
+
+# =================
+# History
+# =================
+
+# http://jorge.fbarr.net/2011/03/24/making-your-bash-history-more-efficient/
+
+# ignore same sucessive entries.
+export HISTCONTROL=ignoreboth
+
+# Make some commands not show up in history
+export HISTIGNORE="h:history"
+
+# ====================
+# Aliases
+# ====================
+
+## 'ls' lists information about files.
+# By default, show slashes for directories.
+alias ls='gls -F'
+
+# Enhanced ls, grouping directories and using colors.
+alias lf='gls --color -h --group-directories-first -F'
+
+# Long list format including hidden files and file information.
+alias ll='gls --color -h --group-directories-first -Fla'
+
+# List ACLs (finer-grained permissions that can be inherited).
+# ACLs are a necessary part of OSX fs since 10.6; see
+# - ACLs on OSX: https://goo.gl/PhkcA2
+# - OSX chmod manpage: https://goo.gl/vJqgZ9
+#
+# Note: The default ls on 10.7+ OSX is the GNU coreutils version at:
+# /usr/local/opt/coreutils/libexec/gnubin/ls; in order to see the
+# ACL permissions, we must use the BSD version available at: /bin/ls
+alias lacl='/bin/ls -GFlae'
+
+# Go back one directory
+alias b='cd ..'
+
+# History lists your previously entered commands
+alias h='history'
+
+# If we make a change to our bash profile we need to reload it
+alias reload="clear; source ~/.bash_profile"
+
+# Execute verbosely
+alias cp='gcp -v'
+alias mv='gmv -v'
+alias rm='grm -v'
+alias mkdir='gmkdir -pv'
+
+
+# Git aliases
+alias gs='git status'
+alias gc='git commit'
+alias ga='git add'
+alias gcan='git commit --amend --no-edit'
+alias gl='git log'
+alias gll='git log --oneline'
+
+# ================
+# Application Aliases
+# ================
+alias chrome='open -a "Google Chrome"'
+
+# =================
+# Functions
+# =================
+
+#######################################
+# Start an HTTP server from a directory
+# Arguments:
+#  Port (optional)
+#######################################
+
+serve() {
+  # Simplest server ever!
+  (sleep 2 && open "http://localhost:8000") &
+  python -m SimpleHTTPServer
+}
+
+#######################################
+# List any open internet sockets on
+# several popular ports or pass a specific
+# port to check. Useful if a rogue server is running.
+# http://www.akadia.com/services/lsof_intro.html
+# http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
+#######################################
+
+rogue() {
+  # add or remove ports to check here!
+  local port=$1
+  local PORTS="3000 4567 6379 8000 8001 8080 8081 8082 8888 9515 27017"
+  if [ -n "${port}" ]; then
+    PORTS="$port"
+  fi
+
+  local MESSAGE="> Checking for processes on ports"
+  local COMMAND="lsof"
+
+  for PORT in $PORTS; do
+    MESSAGE="${MESSAGE} ${PORT},"
+    COMMAND="${COMMAND} -i TCP:${PORT}"
+  done
+
+  echo "${MESSAGE%?}..."
+  local OUTPUT="$(${COMMAND})"
+
+  if [ -z "$OUTPUT" ]; then
+    echo "> Nothing running!"
+  else
+    echo "> Processes found:"
+    printf "\n$OUTPUT\n\n"
+    echo "> Use the 'kill' command with the 'PID' of any process you want to quit."
+    echo
+  fi
+}
+
+# =================
+# Sourced Scripts
+# =================
+
+# Builds the prompt with git branch notifications.
+if [ -f ~/.bash_prompt.sh ]; then
+  source ~/.bash_prompt.sh
+fi
+
+# bash/zsh completion support for core Git.
+if [ -f ~/.git-completion.bash ]; then
+  source ~/.git-completion.bash
+fi
+
+# Below here is an area for other commands added by outside programs or
+# commands. Attempt to reserve this area for their use!
+##########################################################################

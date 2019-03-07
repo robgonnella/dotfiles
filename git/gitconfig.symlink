@@ -1,0 +1,36 @@
+[user]
+  name = Rob Gonnella
+  github = robgonnella
+  email = robgonnella@gmail.com
+[color]
+  ui = always
+[color "branch"]
+  current = green reverse
+  local = green
+  remote = yellow
+[color "status"]
+  added = green
+  changed = red
+  untracked = yellow
+[core]
+  editor = vim
+  excludesfile = ~/.gitignore_global
+[push]
+  default = current
+[rerere]
+  enabled = false
+[pull]
+  rebase = false
+[commit]
+  template = ~/.gitmessage.txt
+[alias]
+  s = status
+  sha = rev-parse HEAD
+  last = log -1 HEAD --oneline --decorate
+  ll = log --oneline --decorate
+  back = reset --soft HEAD~1
+  co = checkout
+  bs = branch -v
+  rs = remote -v
+  ci = commit
+  can = commit --amend --no-edit
