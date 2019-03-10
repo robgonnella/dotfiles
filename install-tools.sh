@@ -85,7 +85,7 @@ if ! rbenv --version > /dev/null 2>&1; then
     eval "$(get_pkg_install_command) rbenv"
   else
     sudo apt update
-    sudo apt install \
+    sudo apt install -y \
       autoconf \
       bison \
       build-essential \
@@ -107,7 +107,7 @@ fi
 if ! docker --version > /dev/null 2>&1; then
   if [ "$PLATFORM" = "Linux" ]; then
     sudo apt-get update
-    sudo apt-get install \
+    sudo apt-get install -y \
       apt-transport-https \
       ca-certificates \
       curl \
@@ -119,7 +119,7 @@ if ! docker --version > /dev/null 2>&1; then
       $(lsb_release -cs) \
       stable"
     sudo apt-get update
-    sudo apt-get install docker-ce
+    sudo apt-get install -y docker-ce
     sudo groupadd docker
     sudo usermod -aG docker $USER
     sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose

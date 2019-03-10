@@ -112,9 +112,6 @@ export NVM_DIR="$HOME/.nvm"
 # https://golang.org/doc/install
 export GOPATH="$HOME/code/go"
 
-# intialize rbenv
-eval "$(rbenv init -)"
-
 # ======================================
 # Add script drectories to PATH
 # =====================================
@@ -122,6 +119,9 @@ PATH="$HOME/.rbenv/bin:$PATH"                  # RBENV
 PATH="/usr/local/bin:/usr/local/sbin:$PATH"    # Homebrew
 PATH="/usr/local/heroku/bin:$PATH"             # Heroku Toolbelt
 PATH="$(go env GOPATH)/bin:$PATH"              # Go bin
+
+# intialize rbenv
+eval "$(rbenv init -)"
 
 # Below here is an area for other commands added by outside programs or
 # commands. Attempt to reserve this area for their use!
