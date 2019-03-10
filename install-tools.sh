@@ -21,6 +21,8 @@ if [ "$PLATFORM" = "Darwin" ]; then
   if ! brew --version > /dev/null 2>&1; then
     echo "Installing homebrew"
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    echo "Installing coreutils"
+    brew update && brew install coreutils
   else
     echo "Skipping homebrew installation: Already installed"
   fi

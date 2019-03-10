@@ -1,0 +1,52 @@
+# =================
+# Functions
+# =================
+
+#######################################
+# Start an HTTP server from a directory
+# Arguments:
+#  Port (optional)
+#######################################
+
+serve() {
+  # Simplest server ever!
+  (sleep 2 && open "http://localhost:8000") &
+  python -m SimpleHTTPServer
+}
+
+#######################################
+# List any open internet sockets on
+# several popular ports or pass a specific
+# port to check. Useful if a rogue server is running.
+# http://www.akadia.com/services/lsof_intro.html
+# http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
+#######################################
+
+rogue() {
+  # add or remove ports to check here!
+  local port=$1
+  local PORTS="3000 4567 6379 8000 8001 8080 8081 8082 8888 9515 27017"
+  if [ -n "${port}" ]; then
+    PORTS="$port"
+  fi
+
+  local MESSAGE="> Checking for processes on ports"
+  local COMMAND="lsof"
+
+  for PORT in $PORTS; do
+    MESSAGE="${MESSAGE} ${PORT},"
+    COMMAND="${COMMAND} -i TCP:${PORT}"
+  done
+
+  echo "${MESSAGE%?}..."
+  local OUTPUT="$(${COMMAND})"
+
+  if [ -z "$OUTPUT" ]; then
+    echo "> Nothing running!"
+  else
+    echo "> Processes found:"
+    printf "\n$OUTPUT\n\n"
+    echo "> Use the 'kill' command with the 'PID' of any process you want to quit."
+    echo
+  fi
+}
