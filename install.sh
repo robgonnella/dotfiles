@@ -109,6 +109,7 @@ install_dotfiles () {
   done
 }
 
+./install-tools.sh
 install_dotfiles
 
 source ~/.bash_profile

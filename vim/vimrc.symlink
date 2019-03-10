@@ -189,4 +189,4 @@ set hlsearch
 set autoindent
 set smartindent
 set t_Co=256
-colors predawn
+colors apprentice

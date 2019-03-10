@@ -21,7 +21,7 @@ echo ""
 # ========================
 
 export HOMEBREW_EDITOR=vim
-export NODE_REPL_HISTORY_FILE=~/.node_repl_history
+export NODE_REPL_HISTORY_FILE=$HOME/.node_repl_history
 
 # =================
 # Settings
@@ -75,7 +75,7 @@ alias b='cd ..'
 alias h='history'
 
 # If we make a change to our bash profile we need to reload it
-alias reload="clear; source ~/.bash_profile"
+alias reload="clear; source $HOME/.bashrc"
 
 # Execute verbosely
 alias cp='gcp -v'
@@ -154,15 +154,38 @@ rogue() {
 # Sourced Scripts
 # =================
 
-# Builds the prompt with git branch notifications.
-if [ -f ~/.bash_prompt.sh ]; then
-  source ~/.bash_prompt.sh
+# bash/zsh completion support for core Git.
+if [ -f $HOME/.git-completion.bash ]; then
+  source $HOME/.git-completion.bash
 fi
 
-# bash/zsh completion support for core Git.
-if [ -f ~/.git-completion.bash ]; then
-  source ~/.git-completion.bash
+# load our custom prompt.
+if [ -f $HOME/.bash_prompt ]; then
+  source $HOME/.bash_prompt
 fi
+
+# NVM Setup
+export NVM_DIR="$HOME/.nvm"
+# This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# This loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# GOLANG Setup
+# Set path to go directory
+# https://golang.org/doc/install
+export GOPATH="$HOME/code/go"
+
+# intialize rbenv
+eval "$(rbenv init -)"
+
+# ======================================
+# Add script drectories to PATH
+# =====================================
+PATH="$HOME/.rbenv/bin:$PATH"                  # RBENV
+PATH="/usr/local/bin:/usr/local/sbin:$PATH"    # Homebrew
+PATH="/usr/local/heroku/bin:$PATH"             # Heroku Toolbelt
+PATH="$(go env GOPATH)/bin:$PATH"              # Go bin
 
 # Below here is an area for other commands added by outside programs or
 # commands. Attempt to reserve this area for their use!
