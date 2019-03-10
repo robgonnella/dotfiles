@@ -2,16 +2,6 @@
 # Aliases
 # ====================
 
-## 'ls' lists information about files.
-# By default, show slashes for directories.
-alias ls='gls --color -F'
-
-# Enhanced ls, grouping directories and using colors.
-alias lf='gls --color -h --group-directories-first -F'
-
-# Long list format including hidden files and file information.
-alias ll='gls --color -h --group-directories-first -Fla'
-
 # Go back one directory
 alias b='cd ..'
 
@@ -21,14 +11,9 @@ alias h='history'
 # If we make a change to our bash profile we need to reload it
 alias reload="clear; source $HOME/.bashrc"
 
-# Execute verbosely
-alias cp='gcp -v'
-alias mv='gmv -v'
-alias rm='grm -v'
-alias mkdir='gmkdir -pv'
-
-
-# Git aliases
+# ================
+# Git Aliases
+# ================
 alias gs='git status'
 alias gc='git commit'
 alias ga='git add'

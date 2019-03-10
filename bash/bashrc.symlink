@@ -8,8 +8,15 @@
 #  | $$    $$ \$$    $$|       $$| $$  | $$| $$       \$$     \
 #   \$$$$$$$   \$$$$$$$ \$$$$$$$  \$$   \$$ \$$        \$$$$$$$
 
+
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+case $- in
+  *i*) ;;
+  *) return;;
+esac
+
+# store the current platform
+PLATFORM=`uname -s`
 
 # show punk girl art at start of session
 cat "$HOME/.punk_gurl"
@@ -42,7 +49,15 @@ export LANG="en_US"
 export HISTCONTROL=ignoreboth
 
 # Make some commands not show up in history
+
 export HISTIGNORE="h:history"
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
 
 # =================
 # Sourced Scripts
@@ -52,9 +67,16 @@ if [ -f $HOME/.bash_util ]; then
   source $HOME/.bash_util
 fi
 
-# Commonly used aliases
-if [ -f $HOME/.bash_aliases ]; then
-  source $HOME/.bash_aliases
+# Commonly used aliases 
+if [ -f $HOME/.bash_common_aliases ]; then
+  source $HOME/.bash_common_aliases
+fi
+
+# platform specific aliases
+if [ "$PLATFORM" = "Linux" ] && [ -f $HOME/.bash_ubu_aliases ]; then
+  source $HOME/.bash_ubu_aliases
+elif [ "$PLATFORM" = "Darwin" ] && [ -f $HOME/.bash_osx_aliases ]; then
+  source $HOME/.bash_osx_aliases
 fi
 
 # bash/zsh completion support for core Git
@@ -65,6 +87,17 @@ fi
 # Load our custom prompt
 if [ -f $HOME/.bash_prompt ]; then
   source $HOME/.bash_prompt
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
 fi
 
 # NVM Setup
