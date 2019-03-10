@@ -60,6 +60,8 @@ if ! go version > /dev/null 2>&1; then
   if [ "$PLATFORM" = "Darwin" ]; then
     eval "$(get_pkg_install_command go)"
   else
+    sudo add-apt-repository ppa:longsleep/golang-backports
+    sudo apt-get update
     eval "$(get_pkg_install_command golang-go)"
   fi
   mkdir -p ~/code/go/src ~/code/go/pkg ~/code/go/bin
