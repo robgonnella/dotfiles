@@ -112,9 +112,8 @@ install_dotfiles () {
 ./install-tools.sh
 install_dotfiles
 
-source ~/.bash_profile
+source $HOME/.bash_profile
 
 unset DOTFILES_ROOT
 
 success "All done!"
-exit 0
