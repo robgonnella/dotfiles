@@ -67,7 +67,7 @@ if [ -f $HOME/.bash_util ]; then
   source $HOME/.bash_util
 fi
 
-# Commonly used aliases 
+# Commonly used aliases
 if [ -f $HOME/.bash_common_aliases ]; then
   source $HOME/.bash_common_aliases
 fi

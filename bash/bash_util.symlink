@@ -15,9 +15,9 @@ serve() {
 }
 
 #######################################
-# List any open internet sockets on
-# several popular ports or pass a specific
-# port to check. Useful if a rogue server is running.
+# List any open sockets on several popular
+# ports or pass a specific port to check.
+# Useful if a rogue server is running.
 # http://www.akadia.com/services/lsof_intro.html
 # http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
 #######################################

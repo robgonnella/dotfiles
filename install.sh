@@ -94,11 +94,6 @@ symlink () {
   success "symlinked $1 to $2"
 }
 
-symlink_force () {
-  ln -sf $1 $2
-  success "symlinked (-f) $1 to $2"
-}
-
 install_dotfiles () {
   info 'installing dotfiles'
 

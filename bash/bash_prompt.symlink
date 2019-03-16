@@ -71,7 +71,7 @@ style_branch="${RED}"
 # ---------------------
 # Build the prompt
 # ---------------------
-PS1="🛸 "                                       # Username
+PS1="🛸 "                                       # 🛸 Instead of username
 PS1+="${style_path} \w"                         # Working directory
 PS1+="\$(prompt_git)"                           # Git details
 PS1+="\n"                                       # Newline
@@ -108,28 +108,26 @@ prompt_git() {
     fi
     git_info=$(get_git_branch)
 
-    if $GIT_DIFF_IN_PROMPT; then
-      # Check for uncommitted changes in the index
-      if ! $(git diff --quiet --ignore-submodules --cached); then
-          uc="+"
-      fi
-      # Check for unstaged changes
-      if [ -n "$(git diff-files --name-only --ignore-submodules --)" ]; then
-          us="!"
-      fi
-      # Check for untracked files
-      if [ -n "$(git ls-files --others --exclude-standard)" ]; then
-          ut="${RED}?"
-      fi
-      # Check for stashed files
-      if $(git rev-parse --verify refs/stash &>/dev/null); then
-          st="$"
-      fi
-      git_state=$uc$us$ut$st
-      # Combine the branch name and state information
-      if [[ $git_state ]]; then
-          git_info="$git_info${RESET}[ $git_state${RESET} ]"
-      fi
+    # Check for uncommitted changes in the index
+    if ! $(git diff --quiet --ignore-submodules --cached); then
+        uc="+"
+    fi
+    # Check for unstaged changes
+    if [ -n "$(git diff-files --name-only --ignore-submodules --)" ]; then
+        us="!"
+    fi
+    # Check for untracked files
+    if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+        ut="${RED}?"
+    fi
+    # Check for stashed files
+    if $(git rev-parse --verify refs/stash &>/dev/null); then
+        st="$"
+    fi
+    git_state=$uc$us$ut$st
+    # Combine the branch name and state information
+    if [[ $git_state ]]; then
+        git_info="$git_info${RESET}[ $git_state${RESET} ]"
     fi
 
     printf "${WHITE} on ${style_branch}${git_info}${RESET}"
