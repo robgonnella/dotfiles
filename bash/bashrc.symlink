@@ -127,6 +127,8 @@ PATH="$(go env GOPATH)/bin:$PATH"              # Go bin
 # intialize rbenv
 eval "$(rbenv init -)"
 
+# resize terminal window so our fancy ascii art looks awesome!
+printf '\e[8;60;88t'
 # Below here is an area for other commands added by outside programs or
 # commands. Attempt to reserve this area for their use!
 ##########################################################################
