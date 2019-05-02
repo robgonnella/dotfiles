@@ -100,6 +100,9 @@ if ! rbenv --version > /dev/null 2>&1; then
       libgdbm5 \
       libgdbm-dev
     git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+    # install ruby-build as plugin for installing ruby versions
+    mkdir -p ~/.rbenv/plugins
+    git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
   fi
 else
   echo "Skipping rbenv installation: Already installed"
