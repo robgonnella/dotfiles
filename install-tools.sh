@@ -32,6 +32,9 @@ fi
 if ! git --version > /dev/null 2>&1; then
   echo "Installing git"
   eval "$(get_pkg_install_command git)"
+  if [ "$PLATFORM" = "Darwin" ]; then
+    eval "$(get_pkg_install_command bash-completion)"
+  fi
 else
   echo "Skipping git installation: Already installed"
 fi
