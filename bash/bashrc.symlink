@@ -79,11 +79,6 @@ elif [ "$PLATFORM" = "Darwin" ] && [ -f $HOME/.bash_osx_aliases ]; then
   source $HOME/.bash_osx_aliases
 fi
 
-# bash/zsh completion support for core Git
-if [ -f $HOME/.git-completion.bash ]; then
-  source $HOME/.git-completion.bash
-fi
-
 # Load our custom prompt
 if [ -f $HOME/.bash_prompt ]; then
   source $HOME/.bash_prompt
