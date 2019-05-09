@@ -50,3 +50,34 @@ rogue() {
     echo
   fi
 }
+
+dssh() {
+  docker exec -ti $1 bash
+}
+
+dlist() {
+  docker ps -a
+}
+
+drm_f() {
+  if [ -z "$1" ]; then
+    docker rm -f $(docker ps -aq)
+  else
+    docker rm -f $1
+  fi
+}
+
+dcp_from() {
+  local container=$1
+  local containerPath=$2
+  local localPath=$3
+  docker cp $container:$containerPath $localPath
+}
+
+dcp_to() {
+  local localPath=$1
+  local container=$2
+  local containerPath=$3
+  docker cp $localPath $container:$containerPath
+}
+
