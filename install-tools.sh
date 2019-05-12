@@ -83,6 +83,20 @@ else
   echo "Skipping nvm installation: Already installed"
 fi
 
+# install yarn
+if ! yarn --version > /dev/null; then
+  echo "Installiing yarn"
+  if [ "$PLATFORM" = "Darwin" ]; then
+    brew install yarn --ignore-dependencies
+  else
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    sudo apt-get update && sudo apt-get install --no-install-recommends yarn
+  fi
+else
+  echo "Skipping yarn installation: Already installed"
+fi
+
 # install rbenv:
 if ! rbenv --version > /dev/null 2>&1; then
   echo "Installing rbenv"
