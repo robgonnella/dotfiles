@@ -71,11 +71,11 @@ style_branch="${RED}"
 # ---------------------
 # Build the prompt
 # ---------------------
-PS1="🛸 "                                       # 🛸 Instead of username
-PS1+="${style_path} \w"                         # Working directory
-PS1+="\$(prompt_git)"                           # Git details
-PS1+="\n"                                       # Newline
-PS1+="${style_chars}${YELLOW}⚡ \[${RESET}\]"    # ⚡ (and reset color)
+PS1="🛸 "                                          # 🛸 Instead of username
+PS1+="${style_path} \w"                            # Working directory
+PS1+="\$(prompt_git)"                              # Git details
+PS1+="\n"                                          # Newline
+PS1+="${style_chars}${style_user}⚡ \[${RESET}\]"  # ⚡ (and reset color)
 
 # -----------------
 # For the prompt
