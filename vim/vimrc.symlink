@@ -179,7 +179,7 @@ setlocal spell spelllang=en_us
 set complete+=kspell
 
 " Always use vertical diffs
-set diffopt+=vertical
+set diffopt=vertical
 
 " Local config
 if filereadable($HOME . "/.vimrc.local")

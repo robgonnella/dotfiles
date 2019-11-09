@@ -2,7 +2,10 @@
 # OSX Aliases
 # ====================
 
-## 'ls' lists information about files.
+# unalias zsh aliases
+unalias ls lf ll cp mv rm mkdir gls gcp gmv grm gmkdir 2>/dev/null
+
+# 'ls' lists information about files.
 # By default, show slashes for directories.
 alias ls='gls --color -F'
 

@@ -80,4 +80,3 @@ dcp_to() {
   local containerPath=$3
   docker cp $localPath $container:$containerPath
 }
-
