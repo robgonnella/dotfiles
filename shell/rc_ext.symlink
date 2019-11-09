@@ -1,0 +1,74 @@
+# If not running interactively, don't do anything
+case $- in
+  *i*) ;;
+  *) return;;
+esac
+
+# store the current platform
+PLATFORM=`uname`
+
+# ========================
+# Environmental Variables
+# ========================
+
+if [ "$PLATFORM" = "Darwin" ]; then
+  export HOMEBREW_EDITOR=vim
+fi
+
+export NODE_REPL_HISTORY_FILE=$HOME/.node_repl_history
+
+# =================
+# Settings
+# =================
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# =================
+# Sourced Scripts
+# =================
+# Helpful utility functions
+if [ -f $HOME/.shell_util ]; then
+  source $HOME/.shell_util
+fi
+
+# Commonly used aliases
+if [ -f $HOME/.aliases ]; then
+  source $HOME/.aliases
+fi
+
+# platform specific aliases
+if [ "$PLATFORM" = "Linux" ] && [ -f $HOME/.aliases_ubu ]; then
+  source $HOME/.aliases_ubu
+elif [ "$PLATFORM" = "Darwin" ] && [ -f $HOME/.aliases_osx ]; then
+  source $HOME/.aliases_osx
+fi
+
+if [ -f $HOME/.rc_extra ]; then
+  source $HOME/.rc_extra
+fi
+
+# NVM Setup
+export NVM_DIR="$HOME/.nvm"
+# This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# This loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# GOLANG Setup
+# Set path to go directory
+# https://golang.org/doc/install
+export GOPATH="$HOME/code/go"
+
+# ======================================
+# Add script drectories to PATH
+# =====================================
+PATH="$HOME/.rbenv/bin:$PATH"                  # RBENV
+PATH="/usr/local/bin:/usr/local/sbin:$PATH"    # Homebrew
+PATH="/usr/local/heroku/bin:$PATH"             # Heroku Toolbelt
+PATH="$(go env GOPATH)/bin:$PATH"              # Go bin
+PATH="$PATH:`yarn global bin`"                 # Yarn globals
+PATH="$HOME/bin:$PATH"                         # Custom User Scripts
+
+# intialize rbenv
+eval "$(rbenv init -)"

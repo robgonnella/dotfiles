@@ -106,9 +106,7 @@ install_dotfiles () {
 
 ./install-tools.sh
 install_dotfiles
-
-source $HOME/.bash_profile
-
 unset DOTFILES_ROOT
 
-success "All done!"
+success "Installation complete!"
+info "You must quit and relaunch terminal for changes to take effect"
