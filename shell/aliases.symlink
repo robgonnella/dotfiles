@@ -9,7 +9,7 @@ alias b='cd ..'
 alias h='history'
 
 # If we make a change to our bash profile we need to reload it
-alias reload="clear; source $HOME/.bashrc"
+alias reload="clear; source $HOME/.zshrc"
 
 # ================
 # Git Aliases
