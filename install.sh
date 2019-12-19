@@ -104,7 +104,6 @@ install_dotfiles () {
   done
 }
 
-./install-tools.sh
 install_dotfiles
 unset DOTFILES_ROOT
 

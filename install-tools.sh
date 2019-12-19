@@ -28,8 +28,27 @@ install_homebrew() {
 }
 
 install_zsh() {
-  echo "Installing zsh"
-  sudo apt-get update && sudo apt-get install -y zsh
+  # zsh installed by default on osx
+  if [ ! -f /bin/zsh ] && [ "$PLATFORM" = "Linux" ]; then
+    echo "Installing zsh"
+    sudo apt-get update && sudo apt-get install -y zsh
+  fi
+}
+
+install_spacemacs() {
+  if ! emacs --version > /dev/null 2>&1; then
+    echo "Installing emacs"
+    if [ "$PLATFORM" = "Darwin" ]; then
+        brew install emacs-plus 2>&1
+    else
+        sudo apt-get update && sudo apt-get install -y emacs
+    fi
+    mv ~/.emacs.d ~/.emacs.d.bak
+    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+    git -C ~/.emacs.d checkout develop
+  else
+    echo "Skipping emacs installation: Already installed"
+  fi
 }
 
 install_git() {
@@ -75,7 +94,7 @@ install_go() {
   fi
 }
 
-install_nvm() {
+install_node() {
   if [ ! -d ~/.nvm ]; then
     echo "Installing nvm"
     if [ "$PLATFORM" = "Linux" ]; then
@@ -85,6 +104,17 @@ install_nvm() {
   else
     echo "Skipping nvm installation: Already installed"
   fi
+  if ! node --version > /dev/null 2>&1; then
+    . ~/.nvm/nvm.sh
+    nvm install node
+  else
+    echo "Skipping node installation: Already installed"
+  fi
+}
+
+install_typescript() {
+  echo "Installing typescript"
+  npm install -g typescript typescript-formatter typescript-language-server tslint
 }
 
 install_yarn() {
@@ -196,9 +226,11 @@ fi
 install_git
 install_vim
 install_go
-install_nvm
+install_node
 install_yarn
+install typescript
 install_rbenv
 install_docker
 install_powerline_fonts
 install_oh_my_zsh
+install_spacemacs
