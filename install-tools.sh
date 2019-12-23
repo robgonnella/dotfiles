@@ -104,7 +104,7 @@ install_node() {
     if [ "$PLATFORM" = "Linux" ]; then
       eval "$(get_pkg_install_command) curl"
     fi
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
   else
     echo "Skipping nvm installation: Already installed"
   fi
