@@ -49,6 +49,10 @@ install_spacemacs() {
   else
     echo "Skipping emacs installation: Already installed"
   fi
+  if ! which ispell > /dev/null; then
+    echo "Installing ispell"
+    eval "$(get_pkg_install_command ispell)"
+  fi
 }
 
 install_git() {
