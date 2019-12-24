@@ -108,6 +108,7 @@ install_node() {
       eval "$(get_pkg_install_command) curl"
     fi
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+    sudo chown -R $USER ~/.nvm
   else
     echo "Skipping nvm installation: Already installed"
   fi
