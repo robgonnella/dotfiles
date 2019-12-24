@@ -232,7 +232,7 @@ install_vim
 install_go
 install_node
 install_yarn
-install typescript
+install_typescript
 install_rbenv
 install_docker
 install_powerline_fonts
