@@ -32,6 +32,8 @@ install_zsh() {
   if [ ! -f /bin/zsh ] && [ "$PLATFORM" = "Linux" ]; then
     echo "Installing zsh"
     sudo apt-get update && sudo apt-get install -y zsh
+    chsh -s $(which zsh)
+
   fi
 }
 
@@ -41,7 +43,8 @@ install_spacemacs() {
     if [ "$PLATFORM" = "Darwin" ]; then
         brew install emacs-plus 2>&1
     else
-        sudo apt-get update && sudo apt-get install -y emacs
+        sudo add-apt-repository ppa:kelleyk/emacs
+        sudo apt-get update && sudo apt-get install -y emacs26
     fi
     mv ~/.emacs.d ~/.emacs.d.bak
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
@@ -159,6 +162,7 @@ install_rbenv() {
       # install ruby-build as plugin for installing ruby versions
       mkdir -p ~/.rbenv/plugins
       git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+      sudo chown -R $USER ~/.rbenv
     fi
   else
     echo "Skipping rbenv installation: Already installed"
@@ -238,3 +242,8 @@ install_docker
 install_powerline_fonts
 install_oh_my_zsh
 install_spacemacs
+
+echo "***************************"
+echo "Installation complete. You must log out and log back in for changes to take effect"
+echo "***************************"
+
