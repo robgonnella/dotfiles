@@ -41,6 +41,7 @@ install_spacemacs() {
   if ! emacs --version > /dev/null 2>&1; then
     echo "Installing emacs"
     if [ "$PLATFORM" = "Darwin" ]; then
+        brew tap d12frosted/emacs-plus
         brew install emacs-plus 2>&1
     else
         sudo add-apt-repository ppa:kelleyk/emacs
