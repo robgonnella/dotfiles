@@ -63,12 +63,13 @@ export GOPATH="$HOME/code/go"
 # ======================================
 # Add script drectories to PATH
 # =====================================
-PATH="$HOME/.rbenv/bin:$PATH"                  # RBENV
-PATH="/usr/local/bin:/usr/local/sbin:$PATH"    # Homebrew
-PATH="/usr/local/heroku/bin:$PATH"             # Heroku Toolbelt
-PATH="$(go env GOPATH)/bin:$PATH"              # Go bin
-PATH="$PATH:`yarn global bin`"                 # Yarn globals
-PATH="$HOME/bin:$PATH"                         # Custom User Scripts
+PATH="$HOME/.rbenv/bin:$PATH"                      # RBENV
+PATH="/usr/local/bin:/usr/local/sbin:$PATH"        # Homebrew
+PATH="/usr/local/heroku/bin:$PATH"                 # Heroku Toolbelt
+PATH="$(go env GOPATH)/bin:$PATH"                  # Go bin
+PATH="$PATH:`yarn global bin`"                     # Yarn globals
+PATH="$HOME/bin:$PATH"                             # Custom User Scripts
+PATH="$HOME/Library/Python/3.7/bin:$PATH"          # Pip tools
 
 # intialize rbenv
 eval "$(rbenv init -)"
