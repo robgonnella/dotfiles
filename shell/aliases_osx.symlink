@@ -20,3 +20,6 @@ alias cp='gcp -v'
 alias mv='gmv -v'
 alias rm='grm -v'
 alias mkdir='gmkdir -pv'
+
+# open emacs
+alias em='open -a emacs $1'
