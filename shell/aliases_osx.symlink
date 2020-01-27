@@ -22,4 +22,4 @@ alias rm='grm -v'
 alias mkdir='gmkdir -pv'
 
 # open emacs
-alias em='open -a emacs $1'
+alias emacs='open -a emacs $1'
