@@ -25,3 +25,8 @@ alias gll='git log --oneline'
 # Application Aliases
 # ================
 alias chrome='open -a "Google Chrome"'
+
+# open emacs in background process
+emx () {
+  emacs $1 &
+}
