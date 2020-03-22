@@ -4,12 +4,11 @@ PLATFORM=`uname`
 
 echo "Running setup: Platform: ${PLATFORM}"
 
-get_pkg_install_command() {
-  local pkg=$1
+install_package() {
   if [ "$PLATFORM" = "Darwin" ]; then
-    echo "brew update && brew install $pkg"
+    brew update && brew install "$@"
   elif [ "$PLATFORM" = "Linux" ]; then
-    echo "sudo apt-get update && sudo apt-get install -y $pkg"
+    sudo apt-get update && sudo apt-get install -y "$@"
   else
     echo "Unsupported platform: $PLATFORM"
     exit 1
@@ -17,13 +16,15 @@ get_pkg_install_command() {
 }
 
 install_homebrew() {
-  if ! brew --version > /dev/null 2>&1; then
-    echo "Installing homebrew"
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    echo "Installing coreutils"
-    brew update && brew install coreutils
-  else
-    echo "Skipping homebrew installation: Already installed"
+  if [ "$PLATFORM" = "Darwin" ]; then
+    if ! brew --version > /dev/null 2>&1; then
+        echo "Installing homebrew"
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        echo "Installing coreutils"
+        install_package coreutils
+    else
+        echo "Skipping homebrew installation: Already installed"
+    fi
   fi
 }
 
@@ -31,7 +32,7 @@ install_zsh() {
   # zsh installed by default on osx
   if [ ! -f /bin/zsh ] && [ "$PLATFORM" = "Linux" ]; then
     echo "Installing zsh"
-    sudo apt-get update && sudo apt-get install -y zsh
+    install_package zsh
     chsh -s $(which zsh)
 
   fi
@@ -42,10 +43,10 @@ install_spacemacs() {
     echo "Installing emacs"
     if [ "$PLATFORM" = "Darwin" ]; then
         brew tap d12frosted/emacs-plus
-        brew install emacs-plus 2>&1
+        install_package emacs-plus 2>&1
     else
         sudo add-apt-repository ppa:kelleyk/emacs
-        sudo apt-get update && sudo apt-get install -y emacs26
+        install_package emacs26
     fi
     mv ~/.emacs.d ~/.emacs.d.bak
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
@@ -55,14 +56,14 @@ install_spacemacs() {
   fi
   if ! which ispell > /dev/null; then
     echo "Installing ispell"
-    eval "$(get_pkg_install_command ispell)"
+    get_install_package ispell
   fi
 }
 
 install_git() {
   if ! git --version > /dev/null 2>&1; then
     echo "Installing git"
-    eval "$(get_pkg_install_command git)"
+    install_package git
   else
     echo "Skipping git installation: Already installed"
   fi
@@ -71,7 +72,7 @@ install_git() {
 install_vim() {
   if ! vim --version > /dev/null 2>&1; then
     echo "Installing vim"
-    eval "$(get_pkg_install_command vim)"
+    install_package vim
     # install vim tools
     mkdir -p ~/.vim/colors ~/.vim/bundle
     git clone https://github.com/jnurmine/Zenburn.git ~/.vim/zenburn
@@ -90,23 +91,28 @@ install_go() {
   if ! go version > /dev/null 2>&1; then
     echo "Installing golang"
     if [ "$PLATFORM" = "Darwin" ]; then
-      brew install go
+        install_package go
     else
       sudo add-apt-repository ppa:longsleep/golang-backports
-      sudo apt-get update
-      sudo apt-get install -y golang-go
+      install_package golang-go
     fi
     mkdir -p ~/code/go/src ~/code/go/pkg ~/code/go/bin
   else
     echo "Skipping go installation: Already installed"
   fi
+  GO111MODULE=on go get -v golang.org/x/tools/gopls@latest
+  GO111MODULE=on CGO_ENABLED=0 go get \
+    -v \
+    -trimpath \
+    -ldflags '-s -w' \
+    github.com/golangci/golangci-lint/cmd/golangci-lint
 }
 
 install_node() {
   if [ ! -d ~/.nvm ]; then
     echo "Installing nvm"
     if [ "$PLATFORM" = "Linux" ]; then
-      eval "$(get_pkg_install_command) curl"
+      install_package curl
     fi
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
     sudo chown -R $USER ~/.nvm
@@ -121,20 +127,15 @@ install_node() {
   fi
 }
 
-install_typescript() {
-  echo "Installing typescript"
-  npm install -g typescript typescript-formatter typescript-language-server tslint
-}
-
 install_yarn() {
   if ! yarn --version > /dev/null; then
     echo "Installiing yarn"
     if [ "$PLATFORM" = "Darwin" ]; then
-      brew install yarn --ignore-dependencies
+      install_package yarn --ignore-dependencies
     else
       curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
       echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-      sudo apt-get update && sudo apt-get install --no-install-recommends yarn
+      install_package --no-install-recommends yarn
     fi
   else
     echo "Skipping yarn installation: Already installed"
@@ -145,10 +146,9 @@ install_rbenv() {
   if ! rbenv --version > /dev/null 2>&1; then
     echo "Installing rbenv"
     if [ "$PLATFORM" = "Darwin" ]; then
-      eval "$(get_pkg_install_command) rbenv"
+      install_package rbenv
     else
-      sudo apt update
-      sudo apt install -y \
+      install_package \
         autoconf \
         bison \
         build-essential \
@@ -174,11 +174,11 @@ install_rbenv() {
 install_docker() {
   if ! docker --version > /dev/null 2>&1; then
     if [ "$PLATFORM" = "Linux" ]; then
-      sudo apt-get update
-      sudo apt-get install -y \
+      install_package \
         apt-transport-https \
         ca-certificates \
         curl \
+        gnupg-agent \
         software-properties-common
       curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
       sudo apt-key fingerprint 0EBFCD88 # just verifies we have the key
@@ -186,8 +186,7 @@ install_docker() {
         "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
         $(lsb_release -cs) \
         stable"
-      sudo apt-get update
-      sudo apt-get install -y docker-ce
+      install_package docker-ce docker-ce-cli containerd.io
       sudo groupadd docker
       sudo usermod -aG docker $USER
       sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -203,7 +202,7 @@ install_docker() {
 
 install_powerline_fonts() {
   if [ "$PLATFORM" = "Linux" ]; then
-    sudo apt-get install fonts-powerline
+    install_package fonts-powerline
   else
     git clone https://github.com/powerline/fonts.git ~/fonts
     ~/fonts/install.sh
@@ -225,20 +224,13 @@ install_oh_my_zsh() {
   fi
 }
 
-if [ "$PLATFORM" = "Darwin" ]; then
-  install_homebrew
-fi
-
-if [ "$PLATFORM" = "Linux" ]; then
-  install_zsh
-fi
-
+install_homebrew
 install_git
+install_zsh
 install_vim
 install_go
 install_node
 install_yarn
-install_typescript
 install_rbenv
 install_docker
 install_powerline_fonts
@@ -248,4 +240,3 @@ install_spacemacs
 echo "***************************"
 echo "Installation complete. You must log out and log back in for changes to take effect"
 echo "***************************"
-
