@@ -25,21 +25,28 @@ serve() {
 rogue() {
   # add or remove ports to check here!
   local port=$1
-  local PORTS="3000 4567 6379 8000 8001 8080 8081 8082 8888 9515 27017"
-  if [ -n "${port}" ]; then
-    PORTS="$port"
-  fi
-
+  local PORTS=(3000 4567 6379 8000 8001 8080 8081 8082 8888 9515 27017)
   local MESSAGE="> Checking for processes on ports"
   local COMMAND="lsof"
+  local COMMAND_ARGS=""
 
-  for PORT in $PORTS; do
+  if [ -n "${port}" ]; then
+    PORTS=($port)
+    MESSAGE="${MESSAGE%?}"
+  fi
+
+  for PORT in ${PORTS[@]}; do
     MESSAGE="${MESSAGE} ${PORT},"
-    COMMAND="${COMMAND} -i TCP:${PORT}"
+    if [ -z "${COMMAND_ARGS}" ]; then
+      COMMAND_ARGS="-i TCP:${PORT}"
+    else
+      COMMAND_ARGS="-i TCP:${PORT} ${COMMAND_ARGS}"
+    fi
   done
 
   echo "${MESSAGE%?}..."
-  local OUTPUT="$(${COMMAND})"
+  COMMAND="${COMMAND} ${COMMAND_ARGS}"
+  local OUTPUT="$(eval $COMMAND)"
 
   if [ -z "$OUTPUT" ]; then
     echo "> Nothing running!"
