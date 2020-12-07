@@ -9,7 +9,7 @@ alias b='cd ..'
 alias h='history'
 
 # If we make a change to our bash profile we need to reload it
-alias reload="clear; source $HOME/.zshrc"
+alias reload="clear; exec zsh -l"
 
 # ================
 # Git Aliases
@@ -25,8 +25,3 @@ alias gll='git log --oneline'
 # Application Aliases
 # ================
 alias chrome='open -a "Google Chrome"'
-
-# open emacs in background process
-emx () {
-  emacs $1 &
-}

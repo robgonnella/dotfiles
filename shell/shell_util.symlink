@@ -9,8 +9,9 @@
 #######################################
 
 serve() {
+  port=${1:-8000}
   # Simplest server ever!
-  (sleep 2 && open "http://localhost:8000") &
+  (sleep 2 && open "http://localhost:${port}") &
   python -m SimpleHTTPServer
 }
 
@@ -46,7 +47,7 @@ rogue() {
 
   echo "${MESSAGE%?}..."
   COMMAND="${COMMAND} ${COMMAND_ARGS}"
-  local OUTPUT="$(eval $COMMAND)"
+  local OUTPUT="$(eval sudo $COMMAND)"
 
   if [ -z "$OUTPUT" ]; then
     echo "> Nothing running!"
@@ -58,32 +59,20 @@ rogue() {
   fi
 }
 
-dssh() {
-  docker exec -ti $1 bash
+dexec() {
+  cntnr=$1
+  cmd=${$2:-bash}
+  docker exec -ti $cntnr $cmd
 }
 
 dlist() {
   docker ps -a
 }
 
-drm_f() {
+drm() {
   if [ -z "$1" ]; then
     docker rm -f $(docker ps -aq)
   else
     docker rm -f $1
   fi
-}
-
-dcp_from() {
-  local container=$1
-  local containerPath=$2
-  local localPath=$3
-  docker cp $container:$containerPath $localPath
-}
-
-dcp_to() {
-  local localPath=$1
-  local container=$2
-  local containerPath=$3
-  docker cp $localPath $container:$containerPath
 }
