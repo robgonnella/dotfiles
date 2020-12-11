@@ -35,50 +35,52 @@ symlink_confirm () {
   source=$1
   dest=$2
 
-  if [ -f $dest ] || [ -d $dest ] || [ -h $dest ]
-  then
+  if [ -f $dest ] || [ -d $dest ] || [ -h $dest ]; then
 
     overwrite=false
     backup=false
     skip=false
 
-    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
-    then
-      user "File already exists: `basename $source`, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+    if [ "$overwrite_all" == "false" ] \
+      && [ "$backup_all" == "false" ] \
+      && [ "$skip_all" == "false" ]; then
+
+      read -r -d '\0' output <<- EOF
+File already exists: `basename $source`, what do you want to do?
+[s]kip
+[S]kip all
+[o]verwrite
+[O]verwrite all
+[b]ackup
+[B]ackup all?\0
+EOF
+
+      user "${output}"
+
       read -n 1 action
 
       case "$action" in
-        o )
-          overwrite=true;;
-        O )
-          overwrite_all=true;;
-        b )
-          backup=true;;
-        B )
-          backup_all=true;;
-        s )
-          skip=true;;
-        S )
-          skip_all=true;;
-        * )
-          ;;
+        o ) overwrite=true;;
+        O ) overwrite_all=true;;
+        b ) backup=true;;
+        B ) backup_all=true;;
+        s ) skip=true;;
+        S ) skip_all=true;;
+        * ) ;;
       esac
     fi
 
-    if [ "$overwrite" == "true" ] || [ "$overwrite_all" == "true" ]
-    then
+    if [ "$overwrite" == "true" ] || [ "$overwrite_all" == "true" ]; then
       rm -rf $dest
       success "removed $dest"
     fi
 
-    if [ "$backup" == "true" ] || [ "$backup_all" == "true" ]
-    then
+    if [ "$backup" == "true" ] || [ "$backup_all" == "true" ]; then
       mv $dest $dest\.BAK
       success "moved $dest to $dest.BAK"
     fi
 
-    if [ "$skip" == "false" ] && [ "$skip_all" == "false" ]
-    then
+    if [ "$skip" == "false" ] && [ "$skip_all" == "false" ]; then
       symlink $source $dest
     else
       success "skipped $source"
@@ -97,8 +99,7 @@ symlink () {
 install_dotfiles () {
   info 'installing dotfiles'
 
-  for source in `find $DOTFILES_ROOT -name \*.symlink`
-  do
+  for source in `find $DOTFILES_ROOT -name \*.symlink`; do
     dest="$HOME/.`basename \"${source%.*}\"`"
     symlink_confirm $source $dest
   done
