@@ -160,6 +160,12 @@ install_powerline_fonts() {
   fi
 }
 
+install_rectangle() {
+  if [ "$PLATFORM" = "Linux" ]; then
+    brew install --cask rectangle
+  fi
+}
+
 install_oh_my_zsh() {
   if [ ! -d ~/.oh-my-zsh ]; then
     echo "Installing oh-my-zsh"
@@ -184,6 +190,7 @@ install_rbenv
 install_pyenv
 install_docker
 install_powerline_fonts
+install_rectangle
 install_oh_my_zsh
 
 echo "***************************"
