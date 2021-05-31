@@ -23,8 +23,50 @@ elif [ "$PLATFORM" = "Darwin" ] && [ -f $HOME/.aliases_osx ]; then
   source $HOME/.aliases_osx
 fi
 
+# ======================================
+# Add script drectories to PATH
+# =====================================
+PATH="/usr/local/sbin:$PATH"                       # Homebrew
+PATH="$HOME/.rbenv/bin:$PATH"                      # RBENV
+
+# Intialize rbenv
+eval "$(rbenv init -)"
+
+# Initialize pyenv
+export PYENV_ROOT="${HOME}/.pyenv"
+export WORKON_HOME="${HOME}/.virtualenvs"
+if command -v pyenv 2>&1 >/dev/null; then
+  eval "$(pyenv init -)"
+fi
+
+pyenv virtualenvwrapper_lazy
+
+# NVM Setup
+export NVM_DIR="$HOME/.nvm"
+# This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# This loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+if [ -d "${HOME}/.local" ]; then
+  for f in "${HOME}/.local/"**/*; do
+    if [ "$(basename ${f})" = "bin" ]; then
+      PATH="${f}:${PATH}"
+    fi
+  done
+fi
+
 if [ -f $HOME/.rc_extra ]; then
   source $HOME/.rc_extra
 fi
 
-PATH="${HOME}/.local/bin:$PATH"
+EMOJIS=(🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐻 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐵 🙈 🙉 🙊 🐒 🐔 🐧 🐦
+🐤 🐣 🐥 🦆 🦅 🦉 🦇 🐺 🐗 🐴 🦄 🐝 🐛 🦋 🐌 🐞 🐜 🦂 🐢 🐍 🦎 🦖 🦕 🐙 🦑 🦐
+🐡 🐠 🐟 🐬 🐳 🐋 🦈 🐊 🐅 🐆 🦓 🦍 🐘 🐫 🦒 🐃 🐂 🐄 🐎 🐖 🐏 🐑 🐐 🦌 🐕 🐩
+🐈 🐓 🦃 🐇 🐁 🐀 🐿 🦔 🐾 🐉 🐲 🌵 🎄 🌲 🌳 🌴 🌱 🌿 🍀 🎍 🎋 🍃 🍂 🍁 🍄 🌾
+💐 🌷 🌹 🥀 🌺 🌸 🌼 🌻 🌞 🌝 🌛 🌜 🌚 🌕 🌖 🌗 🌘 🌑 🌒 🌓 🌔 🌙 🌎 🌍 🌏 💫
+⭐️ 🌟 ✨ ⚡️ 💥 🔥 🌈 ⛅️ ⛄️ 💨 💧 💦 ☔️ 🌊)
+
+SELECTED_EMOJI="${EMOJIS[$RANDOM % ${#EMOJIS[@]}]}"
+
+PROMPT="${PROMPT}"$'\n'"%(!.⚡.${SELECTED_EMOJI}) "

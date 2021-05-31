@@ -41,7 +41,7 @@ rogue() {
     if [ -z "${COMMAND_ARGS}" ]; then
       COMMAND_ARGS="-i TCP:${PORT}"
     else
-      COMMAND_ARGS="-i TCP:${PORT} ${COMMAND_ARGS}"
+      COMMAND_ARGS="${COMMAND_ARGS},${PORT}"
     fi
   done
 
@@ -61,18 +61,30 @@ rogue() {
 
 dexec() {
   cntnr=$1
-  cmd=${$2:-bash}
-  docker exec -ti $cntnr $cmd
+  shift
+  cmd="${$@:-bash}"
+  docker exec -ti ${cntnr} ${cmd}
 }
 
 dlist() {
-  docker ps -a
+  local ltype=c
+  if [ -n "${1}" ]; then
+    ltype="${1}"
+    shift
+  fi
+  case ${ltype} in
+    c|containers) docker ps -a "$@";;
+    i|images) docker images "$@";;
+    *)
+      echo "unknown arg: ${ltype}, listing containers..."
+      docker ps -a "$@";;
+  esac
 }
 
 drm() {
   if [ -z "$1" ]; then
-    docker rm -f $(docker ps -aq)
+    docker rm -f $(dlist c -q)
   else
-    docker rm -f $1
+    docker rm -f "$@"
   fi
 }

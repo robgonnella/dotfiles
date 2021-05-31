@@ -8,7 +8,7 @@ install_package() {
   if [ "$PLATFORM" = "Darwin" ]; then
     brew update && brew install "$@"
   elif [ "$PLATFORM" = "Linux" ]; then
-    sudo apt-get update && sudo apt-get install -y "$@"
+    sudo apt update && sudo apt install -y "$@"
   else
     echo "Unsupported platform: $PLATFORM"
     exit 1
@@ -63,6 +63,63 @@ install_vim() {
   else
     echo "Skipping vim installation: Already installed"
   fi
+}
+
+install_node() {
+  if [ ! -d ~/.nvm ]; then
+    echo "Installing nvm"
+    if [ "$PLATFORM" = "Linux" ]; then
+      install_package curl
+    fi
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+    sudo chown -R $USER ~/.nvm
+  else
+    echo "Skipping nvm installation: Already installed"
+  fi
+  if ! node --version > /dev/null 2>&1; then
+    . ~/.nvm/nvm.sh
+    nvm install node
+  else
+    echo "Skipping node installation: Already installed"
+  fi
+}
+
+install_rbenv() {
+  if ! rbenv --version > /dev/null 2>&1; then
+    echo "Installing rbenv"
+    if [ "$PLATFORM" = "Darwin" ]; then
+      install_package rbenv
+    else
+      install_package \
+        autoconf \
+        bison \
+        build-essential \
+        libssl-dev \
+        libyaml-dev \
+        libreadline6-dev \
+        zlib1g-dev \
+        libncurses5-dev \
+        libffi-dev \
+        libgdbm5 \
+        libgdbm-dev
+      git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+      # install ruby-build as plugin for installing ruby versions
+      mkdir -p ~/.rbenv/plugins
+      git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+      sudo chown -R $USER ~/.rbenv
+    fi
+  else
+    echo "Skipping rbenv installation: Already installed"
+  fi
+}
+
+install_pyenv() {
+  git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+  cd ~/.pyenv && src/configure && make -C src
+  eval "$(pyenv init -)"
+  pyenv install 3.9.4
+  pyenv global 3.9.4
+  git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git $(pyenv root)/plugins/pyenv-virtualenvwrapper
 }
 
 install_docker() {
@@ -122,9 +179,13 @@ install_homebrew
 install_git
 install_zsh
 install_vim
+install_node
+install_rbenv
+install_pyenv
 install_docker
 install_powerline_fonts
 install_oh_my_zsh
+
 echo "***************************"
 echo "Installation complete. You must log out and log back in for changes to take effect"
 echo "***************************"
