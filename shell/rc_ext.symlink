@@ -28,6 +28,7 @@ fi
 # =====================================
 PATH="/usr/local/sbin:$PATH"                       # Homebrew
 PATH="$HOME/.rbenv/bin:$PATH"                      # RBENV
+PATH="$HOME/.pyenv/bin:$PATH"
 
 # Intialize rbenv
 eval "$(rbenv init -)"
@@ -36,6 +37,7 @@ eval "$(rbenv init -)"
 export PYENV_ROOT="${HOME}/.pyenv"
 export WORKON_HOME="${HOME}/.virtualenvs"
 if command -v pyenv 2>&1 >/dev/null; then
+  eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
 fi
 

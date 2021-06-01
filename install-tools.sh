@@ -116,7 +116,7 @@ install_rbenv() {
 install_pyenv() {
   git clone https://github.com/pyenv/pyenv.git ~/.pyenv
   cd ~/.pyenv && src/configure && make -C src
-  eval "$(pyenv init -)"
+  eval "$(~/.pyenv/bin/pyenv init -)"
   pyenv install 3.9.4
   pyenv global 3.9.4
   git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git $(pyenv root)/plugins/pyenv-virtualenvwrapper
