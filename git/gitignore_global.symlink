@@ -97,3 +97,7 @@ tags
 # dotenv #
 ##########
 .env
+
+# project notes #
+# ##############
+*.scratch.md

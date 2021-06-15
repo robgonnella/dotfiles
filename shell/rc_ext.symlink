@@ -24,37 +24,50 @@ elif [ "$PLATFORM" = "Darwin" ] && [ -f $HOME/.aliases_osx ]; then
 fi
 
 # ======================================
-# Add script drectories to PATH
+# Add script directories to PATH
 # =====================================
-PATH="/usr/local/sbin:$PATH"                       # Homebrew
-PATH="$HOME/.rbenv/bin:$PATH"                      # RBENV
-PATH="$HOME/.pyenv/bin:$PATH"
-
-# Intialize rbenv
-eval "$(rbenv init -)"
-
-# Initialize pyenv
-export PYENV_ROOT="${HOME}/.pyenv"
-export WORKON_HOME="${HOME}/.virtualenvs"
-if command -v pyenv 2>&1 >/dev/null; then
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
+if which brew 2>&1 >/dev/null; then
+  PATH="/usr/local/sbin:$PATH"                       # homebrew
 fi
 
-pyenv virtualenvwrapper_lazy
+# Initialize go
+if which go 2>&1 >/dev/null; then
+  PATH="$(go env GOPATH)/bin:$PATH"                  # go bin
+  export GOPATH="$HOME/go"
+fi
+
+# Initialize rbenv
+if [ -d "${HOME}/.rbenv" ]; then
+  PATH="$HOME/.rbenv/bin:$PATH"                      # rbenv
+  eval "$(rbenv init -)"
+fi
+
+# Initialize pyenv
+if [ -d "${HOME}/.pyenv" ]; then
+  PATH="$HOME/.pyenv/bin:$PATH"                      # pyenv bin
+  export PYENV_ROOT="${HOME}/.pyenv"
+  export WORKON_HOME="${HOME}/.virtualenvs"
+  if command -v pyenv 2>&1 >/dev/null; then
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+  fi
+
+  pyenv virtualenvwrapper_lazy
+fi
 
 # NVM Setup
-export NVM_DIR="$HOME/.nvm"
-# This loads nvm
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-# This loads nvm bash_completion
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+if [ -d "${HOME}/.nvm" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  # This loads nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  # This loads nvm bash_completion
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+fi
 
 if [ -d "${HOME}/.local" ]; then
-  for f in "${HOME}/.local/"**/*; do
-    if [ "$(basename ${f})" = "bin" ]; then
-      PATH="${f}:${PATH}"
-    fi
+  bins=($(find "${HOME}/.local" -type d -name "*bin"))
+  for d in "${bins[@]}"; do
+    PATH="${d}:${PATH}"
   done
 fi
 
@@ -62,10 +75,10 @@ if [ -f $HOME/.rc_extra ]; then
   source $HOME/.rc_extra
 fi
 
-EMOJIS=(🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐻 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐵 🙈 🙉 🙊 🐒 🐔 🐧 🐦
-🐤 🐣 🐥 🦆 🦅 🦉 🦇 🐺 🐗 🐴 🦄 🐝 🐛 🦋 🐌 🐞 🐜 🦂 🐢 🐍 🦎 🦖 🦕 🐙 🦑 🦐
-🐡 🐠 🐟 🐬 🐳 🐋 🦈 🐊 🐅 🐆 🦓 🦍 🐘 🐫 🦒 🐃 🐂 🐄 🐎 🐖 🐏 🐑 🐐 🦌 🐕 🐩
-🐈 🐓 🦃 🐇 🐁 🐀 🐿 🦔 🐾 🐉 🐲 🌵 🎄 🌲 🌳 🌴 🌱 🌿 🍀 🎍 🎋 🍃 🍂 🍁 🍄 🌾
+EMOJIS=(🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐻 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐵 🙈 🙉 🙊 🐒 🐔 🐧
+🐦 🐤 🐣 🐥 🦆 🦅 🦉 🦇 🐺 🐗 🐴 🦄 🐝 🐛 🦋 🐌 🐞 🐜 🦂 🐢 🐍 🦎 🦖 🦕 🐙 🦑
+🦐 🐡 🐠 🐟 🐬 🐳 🐋 🦈 🐊 🐅 🐆 🦓 🦍 🐘 🐫 🦒 🐃 🐂 🐄 🐎 🐖 🐏 🐑 🐐 🦌 🐕
+🐩 🐈 🐓 🦃 🐇 🐁 🐀 🦔 🐾 🐉 🐲 🌵 🎄 🌲 🌳 🌴 🌱 🌿 🍀 🎍 🎋 🍃 🍂 🍁 🍄 🌾
 💐 🌷 🌹 🥀 🌺 🌸 🌼 🌻 🌞 🌝 🌛 🌜 🌚 🌕 🌖 🌗 🌘 🌑 🌒 🌓 🌔 🌙 🌎 🌍 🌏 💫
 ⭐️ 🌟 ✨ ⚡️ 💥 🔥 🌈 ⛅️ ⛄️ 💨 💧 💦 ☔️ 🌊)
 
