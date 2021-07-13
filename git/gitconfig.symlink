@@ -23,6 +23,8 @@
   rebase = false
 [commit]
   template = ~/.gitmessage.txt
+[init]
+  defaultBranch = main
 [alias]
   s = status
   sha = rev-parse HEAD
