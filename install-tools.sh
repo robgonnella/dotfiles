@@ -100,7 +100,6 @@ install_rbenv() {
         zlib1g-dev \
         libncurses5-dev \
         libffi-dev \
-        libgdbm5 \
         libgdbm-dev
       git clone https://github.com/rbenv/rbenv.git ~/.rbenv
       # install ruby-build as plugin for installing ruby versions
@@ -114,12 +113,41 @@ install_rbenv() {
 }
 
 install_pyenv() {
+  if [ "$PLATFORM" = "Linux" ]; then
+    install_package make \
+      build-essential \
+      libssl-dev \
+      zlib1g-dev \
+      libbz2-dev \
+      libreadline-dev \
+      libsqlite3-dev \
+      wget \
+      curl \
+      llvm \
+      libncursesw5-dev \
+      xz-utils \
+      tk-dev \
+      libxml2-dev \
+      libxmlsec1-dev \
+      libffi-dev \
+      liblzma-dev
+  fi
   git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-  cd ~/.pyenv && src/configure && make -C src
-  eval "$(~/.pyenv/bin/pyenv init -)"
-  pyenv install 3.9.4
-  pyenv global 3.9.4
-  git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git $(pyenv root)/plugins/pyenv-virtualenvwrapper
+  cd ~/.pyenv && src/configure && make -C src && cd -
+  ~/.pyenv/bin/pyenv install 3.9.5
+  ~/.pyenv/bin/pyenv global 3.9.5
+  git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git ~/.pyenv/plugins/pyenv-virtualenvwrapper
+}
+
+install_golang() {
+  if [ "$PLATFORM" = "Linux" ]; then
+    local version=$(curl https://golang.org/VERSION?m=text)
+    local arch=${version}.linux-amd64.tar.gz
+    wget "https://dl.google.com/go/${arch}"
+    rm -rf /usr/local/go
+    sudo tar -C /usr/local -xzf ${arch}
+    rm ${arch}
+  fi
 }
 
 install_docker() {
@@ -136,9 +164,8 @@ install_docker() {
       sudo add-apt-repository \
         "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
         $(lsb_release -cs) \
-        stable"
+        test"
       install_package docker-ce docker-ce-cli containerd.io
-      sudo groupadd docker
       sudo usermod -aG docker $USER
       sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
       sudo chmod +x /usr/local/bin/docker-compose
@@ -152,17 +179,17 @@ install_docker() {
 }
 
 install_powerline_fonts() {
+  git clone https://github.com/powerline/fonts.git
+  ./fonts/install.sh
+  rm -rf ./fonts
   if [ "$PLATFORM" = "Linux" ]; then
-    install_package fonts-powerline
-  else
-    git clone https://github.com/powerline/fonts.git ~/fonts
-    ~/fonts/install.sh
+    ln -s ~/.local/share/fonts ~/.fonts
   fi
 }
 
 install_rectangle() {
-  if [ "$PLATFORM" = "Linux" ]; then
-    brew install --cask rectangle
+  if [ "$PLATFORM" = "Darwin" ]; then
+    install_package --cask rectangle
   fi
 }
 
@@ -181,18 +208,21 @@ install_oh_my_zsh() {
   fi
 }
 
-install_homebrew
-install_git
-install_zsh
-install_vim
-install_node
-install_rbenv
-install_pyenv
-install_docker
-install_powerline_fonts
-install_rectangle
-install_oh_my_zsh
+if [ "${BASH_SOURCE[0]}" -ef "$0" ]; then
+  install_homebrew
+  install_git
+  install_zsh
+  install_vim
+  install_node
+  install_rbenv
+  install_pyenv
+  install_golang
+  install_docker
+  install_powerline_fonts
+  install_rectangle
+  install_oh_my_zsh
 
-echo "***************************"
-echo "Installation complete. You must log out and log back in for changes to take effect"
-echo "***************************"
+  echo "***************************"
+  echo "Installation complete. You must log out and log back in for changes to take effect"
+  echo "***************************"
+fi
