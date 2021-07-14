@@ -31,8 +31,8 @@ if which brew 2>&1 >/dev/null; then
 fi
 
 # Initialize go
-if which go 2>&1 >/dev/null; then
-  PATH="$(go env GOPATH)/bin:$PATH"                  # go bin
+if [ -d /usr/local/go/bin ]; then
+  PATH="/usr/local/go/bin:$PATH"
   export GOPATH="$HOME/go"
 fi
 
