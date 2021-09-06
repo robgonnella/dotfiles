@@ -100,4 +100,6 @@ tags
 
 # project notes #
 # ##############
+scratch/
+scratch.md
 *.scratch.md

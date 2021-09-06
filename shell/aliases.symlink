@@ -2,24 +2,8 @@
 # Aliases
 # ====================
 
-# Go back one directory
-alias b='cd ..'
-
-# History lists your previously entered commands
-alias h='history'
-
 # If we make a change to our bash profile we need to reload it
 alias reload="clear; exec zsh -l"
-
-# ================
-# Git Aliases
-# ================
-alias gs='git status'
-alias gc='git commit'
-alias ga='git add'
-alias gcan='git commit --amend --no-edit'
-alias gl='git log'
-alias gll='git log --oneline'
 
 # ================
 # Application Aliases

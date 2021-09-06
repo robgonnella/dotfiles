@@ -21,7 +21,16 @@ install_homebrew() {
         echo "Installing homebrew"
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         echo "Installing coreutils"
-        install_package coreutils
+        install_package \
+          coreutils \
+          findutils \
+          gnu-tar \
+          gnu-time \
+          gnu-sed \
+          gawk \
+          gnutls \
+          gnu-getopt \
+          grep
     else
         echo "Skipping homebrew installation: Already installed"
     fi
@@ -178,15 +187,6 @@ install_docker() {
   fi
 }
 
-install_powerline_fonts() {
-  git clone https://github.com/powerline/fonts.git
-  ./fonts/install.sh
-  rm -rf ./fonts
-  if [ "$PLATFORM" = "Linux" ]; then
-    ln -s ~/.local/share/fonts ~/.fonts
-  fi
-}
-
 install_rectangle() {
   if [ "$PLATFORM" = "Darwin" ]; then
     install_package --cask rectangle
@@ -197,12 +197,7 @@ install_oh_my_zsh() {
   if [ ! -d ~/.oh-my-zsh ]; then
     echo "Installing oh-my-zsh"
     curl -o- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
-    echo "source \$HOME/.rc_ext" >> ~/.zshrc
-    if [ "$PLATFORM" = "Linux" ]; then
-      sed -i 's/ZSH_THEME=.*/ZSH_THEME="agnoster"/g' ~/.zshrc
-    elif [ "$PLATFORM" = "Darwin" ]; then
-      sed -i '' 's/ZSH_THEME=.*/ZSH_THEME="agnoster"/g' $HOME/.zshrc
-    fi
+    git clone https://github.com/sindresorhus/pure.git "$HOME/.oh-my-zsh/custom/themes/pure"
   else
     echo "Skipping oh-my-zsh installation: Already installed"
   fi
@@ -218,7 +213,6 @@ if [ "${BASH_SOURCE[0]}" -ef "$0" ]; then
   install_pyenv
   install_golang
   install_docker
-  install_powerline_fonts
   install_rectangle
   install_oh_my_zsh
 

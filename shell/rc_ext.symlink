@@ -57,13 +57,17 @@ if [ -d "${HOME}/.pyenv" ]; then
 fi
 
 # NVM Setup
+
 if [ -d "${HOME}/.nvm" ]; then
   export NVM_DIR="$HOME/.nvm"
-  # This loads nvm
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  # This loads nvm bash_completion
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  lazy_load_nvm() {
+    # This loads nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    # This loads nvm bash_completion
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  }
 fi
+
 
 if [ -d "${HOME}/.local/bin" ]; then
   PATH="${HOME}/.local/bin:$PATH"
@@ -82,4 +86,4 @@ EMOJIS=(🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐻 🐨 🐯 🦁 🐮 🐷 �
 
 SELECTED_EMOJI="${EMOJIS[$RANDOM % ${#EMOJIS[@]}]}"
 
-PROMPT="${PROMPT}"$'\n'"%(!.⚡.${SELECTED_EMOJI}) "
+PROMPT="%(!.⚡.${SELECTED_EMOJI}) ${PROMPT}"
