@@ -3,7 +3,8 @@
 # Install script from:
 # https://github.com/dave-tucker/dotfiles
 
-DOTFILES_ROOT="`pwd`"
+DOTFILES_ROOT=$(pwd)
+PLATFORM="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
 set -e
 
@@ -96,17 +97,34 @@ symlink () {
   success "symlinked $1 to $2"
 }
 
+is_platform_specific() {
+  ([[ "$1" =~ "darwin" ]] || [[ "$1" =~ "linux" ]]) && return 0
+  return 1
+}
+
+get_platform() {
+  [[ "$1" =~ "darwin" ]] && echo "$PLATFORM"; return
+  [[ "$1" =~ "linux" ]] && echo "$PLATFORM"; return
+  echo "Unknown"
+}
+
 install_dotfiles () {
   info 'installing dotfiles'
 
-  for source in `find $DOTFILES_ROOT -name \*.symlink`; do
-    dest="$HOME/.`basename \"${source%.*}\"`"
-    symlink_confirm $source $dest
+  for src in `find $DOTFILES_ROOT -name \*.symlink`; do
+    if is_platform_specific $src; then
+      if [ "$(get_platform $src)" != "$PLATFORM" ]; then
+        continue
+      fi
+    fi
+    dest="$HOME/.`basename \"${src%.*}\"`"
+    symlink_confirm $src $dest
   done
 }
 
 install_dotfiles
 unset DOTFILES_ROOT
+unset PLATFORM
 
 success "Installation complete!"
 info "You must quit and relaunch terminal for changes to take effect"
