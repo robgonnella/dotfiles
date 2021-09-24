@@ -102,23 +102,22 @@ is_platform_specific() {
   return 1
 }
 
-get_platform() {
-  [[ "$1" =~ "darwin" ]] && echo "$PLATFORM"; return
-  [[ "$1" =~ "linux" ]] && echo "$PLATFORM"; return
-  echo "Unknown"
+should_link_file() {
+  if is_platform_specific $1; then
+    [[ "$1" =~ "$PLATFORM" ]] && return 0;
+    return 1
+  fi
+  return 0;
 }
 
 install_dotfiles () {
   info 'installing dotfiles'
 
   for src in `find $DOTFILES_ROOT -name \*.symlink`; do
-    if is_platform_specific $src; then
-      if [ "$(get_platform $src)" != "$PLATFORM" ]; then
-        continue
-      fi
+    if should_link_file $src; then
+      dest="$HOME/.`basename \"${src%.*}\"`"
+      symlink_confirm $src $dest
     fi
-    dest="$HOME/.`basename \"${src%.*}\"`"
-    symlink_confirm $src $dest
   done
 }
 
