@@ -88,3 +88,7 @@ drm() {
     docker rm -f "$@"
   fi
 }
+
+zshman() {
+  less /usr/share/zsh/$ZSH_VERSION/help/$1
+}

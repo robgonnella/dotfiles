@@ -1,0 +1,6 @@
+########
+# golang
+########
+export GOPATH="$HOME/go"
+PATH="/usr/local/go/bin:$PATH"
+PATH="${GOPATH}/bin:$PATH"

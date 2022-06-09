@@ -1,7 +1,7 @@
 [user]
   name = Rob Gonnella
-  github =
-  email =
+  github = rgonpapaya
+  email = rob.gonnella@papayapay.com
 [color]
   ui = always
 [color "branch"]
@@ -36,3 +36,7 @@
   rs = remote -v
   ci = commit
   can = commit --amend --no-edit
+[credential "https://git-codecommit.us-east-1.amazonaws.com"]
+  helper =
+  helper = !aws-vault exec --prompt=osascript --duration=12h consumer -- aws codecommit credential-helper $@
+  UseHttpPath = true

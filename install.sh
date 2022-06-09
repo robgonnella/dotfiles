@@ -3,26 +3,41 @@
 # Install script from:
 # https://github.com/dave-tucker/dotfiles
 
+set -euo pipefail
+
 DOTFILES_ROOT=$(pwd)
 PLATFORM="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
-set -e
+if [ "$PLATFORM" = "darwin" ]; then
+  OS=osx
+elif [ "$PLATFORM" = "linux" ] && [ -f /etc/os-release ]; then
+  if cat /etc/os-release | grep ubuntu >/dev/null; then
+    OS=ubuntu
+  else
+    echo "Unsupported platform"
+    cat /etc/os-release
+    exit 1
+  fi
+else
+  echo "Unsupported platform"
+  exit 1
+fi
 
 echo ''
 
-info () {
+info() {
   printf "\r  [\033[00;34m ➔ \033[0m] $1\n"
 }
 
-user () {
+user() {
   printf "\r  [\033[0;33m ❖ \033[0m] $1 \n"
 }
 
-success () {
+success() {
   printf "\r\033[2K  [\033[00;32m ✔ \033[0m] $1\n"
 }
 
-fail () {
+fail() {
   printf "\r\033[2K  [\033[0;31m ✖ \033[0m] $1\n"
   echo ''
   exit 1
@@ -32,7 +47,7 @@ overwrite_all=false
 backup_all=false
 skip_all=false
 
-symlink_confirm () {
+symlink_confirm() {
   source=$1
   dest=$2
 
@@ -92,38 +107,72 @@ EOF
   fi
 }
 
-symlink () {
+symlink() {
   ln -s $1 $2
   success "symlinked $1 to $2"
 }
 
-is_platform_specific() {
-  ([[ "$1" =~ "darwin" ]] || [[ "$1" =~ "linux" ]]) && return 0
-  return 1
-}
-
-should_link_file() {
-  if is_platform_specific $1; then
-    [[ "$1" =~ "$PLATFORM" ]] && return 0;
-    return 1
-  fi
-  return 0;
-}
-
-install_dotfiles () {
-  info 'installing dotfiles'
-
-  for src in `find $DOTFILES_ROOT -name \*.symlink`; do
-    if should_link_file $src; then
-      dest="$HOME/.`basename \"${src%.*}\"`"
-      symlink_confirm $src $dest
+install_software() {
+  for d in $DOTFILES_ROOT/*; do
+    if [ ! -d $d ]; then
+      continue
+    fi
+    echo "${d#$DOTFILES_ROOT/}"
+    if [ -f "$d/$OS/install.sh" ]; then
+      $d/$OS/install.sh
+    else
+      echo "$d/$OS/install.sh does not exist. Skipping"
     fi
   done
 }
 
+install_dotfiles() {
+  info 'installing dotfiles'
+
+  # install common dotfiles
+  for d in $DOTFILES_ROOT/*; do
+    if [ ! -d "$d" ]; then
+      continue
+    fi
+    for src in $(find $d/$OS -name "*.symlink" -depth 1); do
+      dest="$HOME/.`basename \"${src%.*}\"`"
+      symlink_confirm $src $dest
+    done
+  done
+
+  # install common dotfiles
+  for src in $(find $DOTFILES_ROOT -name "*.symlink" -depth 2); do
+    dest="$HOME/.`basename \"${src%.*}\"`"
+    symlink_confirm $src $dest
+  done
+}
+
+update_rc_file() {
+  # add common tooling setup
+  echo "" > $HOME/.rc_tools
+  for src in $(find $DOTFILES_ROOT -name "ZSH" -depth 2); do
+    cat $src >> $HOME/.rc_tools
+    echo "" >> $HOME/.rc_tools
+  done
+
+  # add os specific tooling setup
+  for d in $DOTFILES_ROOT/*; do
+    if [ ! -d "$d" ]; then
+      continue
+    fi
+    for src in $(find $d/$OS -name "ZSH" -depth 1); do
+      cat $src >> $HOME/.rc_tools
+      echo "" >> $HOME/.rc_tools
+    done
+  done
+}
+
+install_software
 install_dotfiles
+update_rc_file
 unset DOTFILES_ROOT
 unset PLATFORM
+unset OS
 
 success "Installation complete!"
 info "You must quit and relaunch terminal for changes to take effect"

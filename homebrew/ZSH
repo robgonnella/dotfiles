@@ -1,0 +1,4 @@
+########
+# homebrew (add homebrew sbin to path)
+########
+PATH="/usr/local/sbin:$PATH"

@@ -1,0 +1,12 @@
+########
+# pyenv
+########
+PATH="$HOME/.pyenv/bin:$PATH"
+export PYENV_ROOT="${HOME}/.pyenv"
+export WORKON_HOME="${HOME}/.virtualenvs"
+if command -v pyenv >/dev/null 2>&1; then
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+fi
+
+pyenv virtualenvwrapper_lazy

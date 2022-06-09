@@ -1,6 +1,15 @@
 # ====================
-# OSX Aliases
+# Aliases
 # ====================
+
+# If we make a change to our bash profile we need to reload it
+alias reload="clear; exec zsh -l"
+alias di='echo dotenv > .envrc && touch .env && direnv allow'
+
+# ================
+# Application Aliases
+# ================
+alias chrome='open -a "Google Chrome"'
 
 # unalias zsh aliases
 unalias ls lf ll cp mv rm mkdir gls gcp gmv grm gmkdir 2>/dev/null
