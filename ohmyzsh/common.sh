@@ -6,6 +6,6 @@ install_ohmyzsh() {
     curl -o- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
     git clone https://github.com/sindresorhus/pure.git "$HOME/.oh-my-zsh/custom/themes/pure"
   else
-    echo "Skipping oh-my-zsh installation: Already installed"
+    echo "oh-my-zsh already installed. Skipping."
   fi
 }

@@ -25,18 +25,3 @@
   template = ~/.gitmessage.txt
 [init]
   defaultBranch = main
-[alias]
-  s = status
-  sha = rev-parse HEAD
-  last = log -1 HEAD --oneline --decorate
-  ll = log --oneline --decorate
-  back = reset --soft HEAD~1
-  co = checkout
-  bs = branch -v
-  rs = remote -v
-  ci = commit
-  can = commit --amend --no-edit
-[credential "https://git-codecommit.us-east-1.amazonaws.com"]
-  helper =
-  helper = !aws-vault exec --prompt=osascript --duration=12h consumer -- aws codecommit credential-helper $@
-  UseHttpPath = true

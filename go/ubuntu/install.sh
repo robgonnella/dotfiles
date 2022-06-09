@@ -3,7 +3,7 @@
 set -euo pipefail
 
 install_golang() {
-  if ! go version; then
+  if ! go version >/dev/null 2>&1; then
     local version=$(curl https://golang.org/VERSION?m=text)
     local arch=${version}.linux-amd64.tar.gz
     wget "https://dl.google.com/go/${arch}"

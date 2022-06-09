@@ -21,5 +21,5 @@ if ! rbenv --version > /dev/null 2>&1; then
   git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
   sudo chown -R $USER ~/.rbenv
 else
-  echo "Skipping rbenv installation: Already installed"
+  echo "rbenv already installed. Skipping."
 fi

@@ -47,7 +47,7 @@ rogue() {
 
   echo "${MESSAGE%?}..."
   COMMAND="${COMMAND} ${COMMAND_ARGS}"
-  local OUTPUT="$(eval sudo $COMMAND)"
+  local OUTPUT="$(eval $COMMAND)"
 
   if [ -z "$OUTPUT" ]; then
     echo "> Nothing running!"
@@ -91,4 +91,14 @@ drm() {
 
 zshman() {
   less /usr/share/zsh/$ZSH_VERSION/help/$1
+}
+
+disable_dark_mode_for_app() {
+  local id="$(osascript -e "id of app \"${1}\"")"
+  defaults write $id NSRequiresAquaSystemAppearance -bool Yes
+}
+
+enable_dark_mode_for_app() {
+  local id="$(osascript -e "id of app \"${1}\"")"
+  defaults delete $id NSRequiresAquaSystemAppearance
 }

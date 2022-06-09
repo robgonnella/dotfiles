@@ -20,5 +20,5 @@ if ! docker --version > /dev/null 2>&1; then
   sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
 else
-  echo "Skipping docker installation: Already installed"
+  echo "docker already installed. Skipping"
 fi

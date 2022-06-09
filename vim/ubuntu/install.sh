@@ -10,7 +10,7 @@ if ! vim --version > /dev/null 2>&1; then
   echo "Installing vim"
   sudo apt update && sudo apt install -y vim
 else
-  echo "Skipping vim installation: Already installed"
+  echo "vim already installed. Skipping."
 fi
 
 install_vim_tools

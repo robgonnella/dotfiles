@@ -26,3 +26,5 @@ EMOJIS=(🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐻 🐨 🐯 🦁 🐮 🐷 �
 SELECTED_EMOJI="${EMOJIS[$RANDOM % ${#EMOJIS[@]}]}"
 
 PROMPT="%(!.⚡.${SELECTED_EMOJI}) ${PROMPT}"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"

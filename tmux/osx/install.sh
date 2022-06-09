@@ -6,7 +6,7 @@ HERE=$(cd $(dirname "${BASH_SOURCE[0]}") >/dev/null 2>&1 && pwd)
 
 source $HERE/../common.sh
 
-if ! which tmux; then
+if ! which tmux >/dev/null 2>&1; then
   echo "Installing tmux"
   brew install tmux
 else

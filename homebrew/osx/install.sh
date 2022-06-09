@@ -17,5 +17,5 @@ if ! brew --version > /dev/null 2>&1; then
     gnu-getopt \
     grep
 else
-  echo "Skipping homebrew installation: Already installed"
+  echo "homebrew already installed. Skipping"
 fi
