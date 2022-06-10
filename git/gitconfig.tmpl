@@ -1,7 +1,7 @@
 [user]
-  name = Rob Gonnella
-  github = rgonpapaya
-  email = rob.gonnella@papayapay.com
+  name = "{{ .Env.name }}"
+  github = {{ .Env.username }}
+  email = {{ .Env.email }}
 [color]
   ui = always
 [color "branch"]

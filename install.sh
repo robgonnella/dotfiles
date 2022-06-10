@@ -169,7 +169,19 @@ generate_tooling_symlink() {
   done
 }
 
+set_git_config() {
+  local name username email
+  echo "Setting up git config"
+  read -p "Enter fullname: " name
+  read -p "Enter github username: " username
+  read -p "Enter email: " email
+  name="$name" username="$username" email="$email" gomplate \
+    --file git/gitconfig.tmpl \
+    --out git/gitconfig.symlink
+}
+
 install_software
+set_git_config
 generate_tooling_symlink
 install_dotfiles
 unset DOTFILES_ROOT
