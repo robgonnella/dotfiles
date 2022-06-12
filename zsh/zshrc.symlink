@@ -16,6 +16,16 @@ if [ -f $HOME/.rc_extra ]; then
   source $HOME/.rc_extra
 fi
 
+########
+# extra aliases
+########
+source $HOME/.aliases
+
+########
+# extra shell utils
+########
+source $HOME/.shell_util
+
 EMOJIS=(🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐻 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐵 🙈 🙉 🙊 🐒 🐔 🐧
 🐦 🐤 🐣 🐥 🦆 🦅 🦉 🦇 🐺 🐗 🐴 🦄 🐝 🐛 🦋 🐌 🐞 🐜 🦂 🐢 🐍 🦎 🦖 🦕 🐙 🦑
 🦐 🐡 🐠 🐟 🐬 🐳 🐋 🦈 🐊 🐅 🐆 🦓 🦍 🐘 🐫 🦒 🐃 🐂 🐄 🐎 🐖 🐏 🐑 🐐 🦌 🐕

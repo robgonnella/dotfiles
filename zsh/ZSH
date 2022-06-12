@@ -1,9 +1,0 @@
-########
-# extra aliases
-########
-source $HOME/.aliases
-
-########
-# extra shell utils
-########
-source $HOME/.shell_util
