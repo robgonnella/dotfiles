@@ -1,71 +1,3 @@
-# ======================================
-# Add script directories to PATH
-# ======================================
-# Custom local scripts
-if [ -d "${HOME}/.local/bin" ]; then
-  PATH="${HOME}/.local/bin:$PATH"
-fi
-
-# ======================================
-# Tools settings
-# ======================================
-########
-# pyenv
-########
-PATH="$HOME/.pyenv/bin:$PATH"
-export PYENV_ROOT="${HOME}/.pyenv"
-export WORKON_HOME="${HOME}/.virtualenvs"
-if command -v pyenv >/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-fi
-
-pyenv virtualenvwrapper_lazy
-
-########
-# golang
-########
-export GOPATH="$HOME/go"
-PATH="/usr/local/go/bin:$PATH"
-PATH="${GOPATH}/bin:$PATH"
-
-########
-# homebrew (add homebrew sbin to path)
-########
-PATH="/usr/local/sbin:$PATH"
-
-########
-# volta
-########
-export VOLTA_HOME="$HOME/.volta"
-PATH="$VOLTA_HOME/bin:$PATH"
-
-########
-# direnv
-########
-eval "$(direnv hook zsh)"
-
-########
-# rbenv
-########
-PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
-# Extra shell config
-if [ -f $HOME/.rc_extra ]; then
-  source $HOME/.rc_extra
-fi
-
-########
-# extra aliases
-########
-source $HOME/.aliases
-
-########
-# extra shell utils
-########
-source $HOME/.shell_util
-
 ########
 # oh-my-zsh
 ########
@@ -86,3 +18,10 @@ EMOJIS=(🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐻 🐨 🐯 🦁 🐮 🐷 �
 SELECTED_EMOJI="${EMOJIS[$RANDOM % ${#EMOJIS[@]}]}"
 
 PROMPT="${SELECTED_EMOJI} ${PROMPT}"
+
+# Extra shell config
+if [ -d $HOME/.config/shell ]; then
+  for f in $HOME/.config/shell/*; do
+    source $f
+  done
+fi
