@@ -7,6 +7,8 @@
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end }}
 
+[[ ! -d "${HOME}/.config/age" ]] && mkdir -p "${HOME}/.config/age"
+
 if [ ! -f "${HOME}/.config/age/key" ]; then
   age --decrypt --output "${HOME}/.config/age/key" "{{ .chezmoi.sourceDir }}/dot_config/age/key.age"
   chmod 600 "${HOME}/.config/age/key"
