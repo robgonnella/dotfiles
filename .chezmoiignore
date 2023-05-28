@@ -1,6 +1,9 @@
+.config/age/key.age
 .oh-my-zsh/cache
+
 Brewfile
+
 {{- if ne .chezmoi.os "darwin" }}
-# only manage .iterm on mac
+# only manage these items on mac
 .iterm
 {{- end }}
