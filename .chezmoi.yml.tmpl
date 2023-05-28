@@ -2,6 +2,11 @@
 {{ $name := promptString "git name (default: Rob Gonnella)" | default "Rob Gonnella" -}}
 {{ $github_username := promptString "github username (default: robgonnella)" | default "robgonnella" -}}
 
+encryption: "age"
+age:
+  identity: "~/.config/age/key"
+  recipient: "age1lje4xg6ru43hg6tscaupsfma4uy7wd5m6ys09ef9ph5tpxjwd54stg2jl6"
+
 data:
   email: {{ $email }}
   name: {{ $name }}
