@@ -1,0 +1,27 @@
+[user]
+  name = {{ .name | quote }}
+  github = {{ .github_username | quote }}
+  email = {{ .email | quote }}
+[color]
+  ui = always
+[color "branch"]
+  current = green reverse
+  local = green
+  remote = yellow
+[color "status"]
+  added = green
+  changed = red
+  untracked = yellow
+[core]
+  editor = vim
+  excludesfile = ~/.gitignore_global
+[push]
+  default = current
+[rerere]
+  enabled = false
+[pull]
+  rebase = false
+[commit]
+  template = ~/.gitmessage.txt
+[init]
+  defaultBranch = main

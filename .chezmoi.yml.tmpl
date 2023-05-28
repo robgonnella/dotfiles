@@ -1,0 +1,13 @@
+{{ $email := promptString "git email" -}}
+{{ $name := promptString "git name (default: Rob Gonnella)" | default "Rob Gonnella" -}}
+{{ $github_username := promptString "github username (default: robgonnella)" | default "robgonnella" -}}
+
+data:
+  email: {{ $email }}
+  name: {{ $name }}
+  github_username: {{ $github_username }}
+
+edit:
+  command: code
+  args:
+    - --wait
