@@ -1,7 +1,9 @@
 .config/age/key.age
 .oh-my-zsh/cache/**/*
 
+Aptfile
 Brewfile
+Snapfile
 
 {{- if ne .chezmoi.os "darwin" }}
 # only manage these items on mac

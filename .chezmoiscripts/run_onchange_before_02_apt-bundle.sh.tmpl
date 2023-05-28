@@ -1,0 +1,10 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+
+# Ensure this script runs on Aptfile changes by including a hash of its file contents:
+# Aptfile: {{ include "Aptfile" | sha256sum }}
+
+sudo apt update
+xargs sudo apt install -y <"{{ .chezmoi.sourceDir }}/Aptfile"
+
+{{ end -}}

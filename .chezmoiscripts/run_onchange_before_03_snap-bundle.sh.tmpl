@@ -1,0 +1,9 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+
+# Ensure this script runs on Snapfile changes by including a hash of its file contents:
+# Snapfile: {{ include "Snapfile" | sha256sum }}
+
+xargs -L 1 sudo snap install <{{ .chezmoi.sourceDir }}/Snapfile
+
+{{ end -}}
