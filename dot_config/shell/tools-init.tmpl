@@ -2,6 +2,16 @@
 # Tools settings and initialization
 # ======================================
 ########
+# homebrew (add homebrew sbin to path)
+########
+{{- if eq .chezmoi.os "darwin" }}
+[[ -f /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -f /usr/local/bin/brew ]] && eval "$(/usr/local/bin/brew shellenv)"
+{{- else if eq .chezmoi.os "linux" }}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{- end }}
+
+########
 # custom local scripts
 ########
 if [ -d "${HOME}/.local/bin" ]; then
@@ -27,16 +37,6 @@ pyenv virtualenvwrapper_lazy
 export GOPATH="$HOME/go"
 PATH="/usr/local/go/bin:$PATH"
 PATH="${GOPATH}/bin:$PATH"
-
-########
-# homebrew (add homebrew sbin to path)
-########
-{{- if eq .chezmoi.os "darwin" }}
-[[ -f /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
-[[ -f /usr/local/bin/brew ]] && eval "$(/usr/local/bin/brew shellenv)"
-{{- else if eq .chezmoi.os "linux" }}
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-{{- end }}
 
 ########
 # volta
