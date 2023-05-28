@@ -3,4 +3,8 @@
 # Ensure this script runs on Brewfile changes by including a hash of its file contents:
 # dot_vimrc: {{ include "dot_vimrc" | sha256sum }}
 
+{{- if eq .chezmoi.os "linux" }}
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{- end }}
+
 vim +PluginInstall +qall
