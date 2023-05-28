@@ -1,7 +1,7 @@
 #!/bin/bash
 
 {{- if eq .chezmoi.os "linux" }}
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end }}
 
 if ! node -v >/dev/null 2>&1; then

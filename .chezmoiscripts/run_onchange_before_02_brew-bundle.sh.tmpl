@@ -4,10 +4,10 @@
 # Brewfile: {{ include "Brewfile" | sha256sum }}
 
 {{- if eq .chezmoi.os "darwin" }}
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 {{- else if eq .chezmoi.os "linux" }}
-  sudo apt update && sudo apt install -y build-essential
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+sudo apt update && sudo apt install -y build-essential
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end }}
 
 brew bundle --no-lock --file "{{ .chezmoi.sourceDir }}/Brewfile"

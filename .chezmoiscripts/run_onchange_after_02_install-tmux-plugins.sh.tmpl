@@ -4,7 +4,7 @@
 # .tmux.conf: {{ include "dot_tmux.conf" | sha256sum }}
 
 {{- if eq .chezmoi.os "linux" }}
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end }}
 
 {{ .chezmoi.homeDir }}/.tmux/plugins/tpm/bin/install_plugins

@@ -4,7 +4,7 @@
 # dot_vimrc: {{ include "dot_vimrc" | sha256sum }}
 
 {{- if eq .chezmoi.os "linux" }}
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end }}
 
 vim +PluginInstall +qall

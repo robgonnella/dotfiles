@@ -4,7 +4,7 @@
 # key.age: {{ include "dot_config/age/key.age" | sha256sum }}
 
 {{- if eq .chezmoi.os "linux" }}
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end }}
 
 [[ ! -d "${HOME}/.config/age" ]] && mkdir -p "${HOME}/.config/age"
