@@ -1,0 +1,6 @@
+.oh-my-zsh/cache
+Brewfile
+{{- if ne .chezmoi.os "darwin" }}
+# only manage .iterm on mac
+.iterm
+{{- end }}

@@ -1,0 +1,37 @@
+[".oh-my-zsh"]
+  type = "archive"
+  url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
+  exact = true
+  stripComponents = 1
+  refreshPeriod = "168h"
+[".oh-my-zsh/custom/themes/pure"]
+  type = "archive"
+  url = "https://github.com/sindresorhus/pure/archive/main.tar.gz"
+  exact = true
+  stripComponents = 1
+  refreshPeriod = "168h"
+[".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
+  type = "archive"
+  url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/master.tar.gz"
+  exact = true
+  stripComponents = 1
+  refreshPeriod = "168h"
+[".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
+  type = "archive"
+  url = "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"
+  exact = true
+  stripComponents = 1
+  refreshPeriod = "168h"
+[".tmux/plugins/tpm"]
+  type = "git-repo"
+  url = "https://github.com/tmux-plugins/tpm"
+  refreshPeriod = "168h"
+[".vim/bundle/Vundle.vim"]
+  type = "archive"
+  url = "https://github.com/VundleVim/Vundle.vim/archive/master.tar.gz"
+  stripComponents = 1
+  refreshPeriod = "168h"
+[".vim/colors/apprentice.vim"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/romainl/Apprentice/master/colors/apprentice.vim"
+  refreshPeriod = "168h"
