@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Ensure this script runs on Brewfile changes by including a hash of its file contents:
+# Brewfile: {{ include "Brewfile" | sha256sum }}
+
+# Ensure this script runs on Aptfile.sh changes by including a hash of its file contents:
+# Aptfile.sh: {{ include "Aptfile.sh" | sha256sum }}
+
+# Ensure this script runs on Snapfile.sh changes by including a hash of its file contents:
+# Snapfile.sh: {{ include "Snapfile.sh" | sha256sum }}
+
+{{- if eq .chezmoi.os "darwin" }}
+[[ -f /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -f /usr/local/bin/brew ]] && eval "$(/usr/local/bin/brew shellenv)"
+{{- else if eq .chezmoi.os "linux" }}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{ .chezmoi.sourceDir }}/Aptfile.sh
+{{ .chezmoi.sourceDir }}/Snapfile.sh
+{{- end }}
+
+brew bundle --no-lock --file "{{ .chezmoi.sourceDir }}/Brewfile"
