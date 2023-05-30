@@ -1,4 +1,5 @@
 .config/age/key.age
+.oh-my-zsh/cache
 .oh-my-zsh/cache/**/*
 
 Aptfile.sh
@@ -7,6 +8,6 @@ Snapfile.sh
 
 {{- if ne .chezmoi.os "darwin" }}
 # only manage these items on mac
-.config/iterm/
-.config/iterm/**/*
+.config/iterm2/
+.config/iterm2/**/*
 {{- end }}
