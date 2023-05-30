@@ -12,7 +12,7 @@ serve() {
   local port=${1:-8000}
   # Simplest server ever!
   (sleep 2 && open "http://localhost:${port}") &
-  python -m SimpleHTTPServer
+  python -m http.server $port
 }
 
 #######################################
