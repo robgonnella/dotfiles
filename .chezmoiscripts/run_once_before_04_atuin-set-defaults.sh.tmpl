@@ -4,6 +4,4 @@
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end }}
 
-if ! node -v >/dev/null 2>&1; then
-  atuin import auto
-fi
+atuin import auto
