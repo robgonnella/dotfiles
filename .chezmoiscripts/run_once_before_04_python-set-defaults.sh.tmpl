@@ -1,13 +1,17 @@
 #!/bin/bash
 
-PYTHON_VERSION=3.11.3
+PYTHON_VERSION="3.11.3"
 
 {{- if eq .chezmoi.os "linux" }}
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end }}
 
-if ! python --version >/dev/null 2>&1; then
+if ! command -v python; then
+  {{- if eq .chezmoi.os "darwin" }}
+  pyenv install $PYTHON_VERSION
+  {{- else if eq .chezmoi.os "linux" }}
   CPPFLAGS="-I$(brew --prefix openssl)/include" \
   LDFLAGS="-L$(brew --prefix openssl)/lib" \
   pyenv install $PYTHON_VERSION
+  {{- end }}
 fi
