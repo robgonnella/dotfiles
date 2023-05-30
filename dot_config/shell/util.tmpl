@@ -9,7 +9,7 @@
 #######################################
 
 serve() {
-  port=${1:-8000}
+  local port=${1:-8000}
   # Simplest server ever!
   (sleep 2 && open "http://localhost:${port}") &
   python -m SimpleHTTPServer
@@ -25,44 +25,58 @@ serve() {
 
 rogue() {
   # add or remove ports to check here!
-  local port=$1
-  local PORTS=(3000 4567 6379 8000 8001 8080 8081 8082 8888 9515 27017)
-  local MESSAGE="> Checking for processes on ports"
-  local COMMAND="lsof"
-  local COMMAND_ARGS=""
+  local ports=()
+  local default_ports=(3000 4567 5432 6379 8000 8001 8080 8081 8082 8888 9515 27017)
+  local message="> Checking for processes on ports: "
+  local command="lsof"
+  local command_args
+  local output
 
-  if [ -n "${port}" ]; then
-    PORTS=($port)
-    MESSAGE="${MESSAGE%?}"
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      -p|--privileged)
+        command="sudo lsof"
+        shift
+        ;;
+      *)
+        ports+="$1"
+        shift
+        ;;
+    esac
+  done
+
+  if [ "${#ports[@]}" = "0" ]; then
+    ports=("${default_ports[@]}")
   fi
 
-  for PORT in ${PORTS[@]}; do
-    MESSAGE="${MESSAGE} ${PORT},"
-    if [ -z "${COMMAND_ARGS}" ]; then
-      COMMAND_ARGS="-i TCP:${PORT}"
+  message="$message ${ports[@]}"
+
+  for port in "${ports[@]}"; do
+    if [ -z "${command_args}" ]; then
+      command_args="-i TCP:${port}"
     else
-      COMMAND_ARGS="${COMMAND_ARGS},${PORT}"
+      command_args="${command_args},${port}"
     fi
   done
 
-  echo "${MESSAGE%?}..."
-  COMMAND="${COMMAND} ${COMMAND_ARGS}"
-  local OUTPUT="$(eval $COMMAND)"
+  echo "$message"
+  command="${command} ${command_args}"
+  output="$(eval $command)"
 
-  if [ -z "$OUTPUT" ]; then
+  if [ -z "$output" ]; then
     echo "> Nothing running!"
   else
     echo "> Processes found:"
-    printf "\n$OUTPUT\n\n"
+    printf "\n$output\n\n"
     echo "> Use the 'kill' command with the 'PID' of any process you want to quit."
     echo
   fi
 }
 
 dexec() {
-  cntnr=$1
+  local cntnr=$1
   shift
-  cmd="${$@:-bash}"
+  local cmd="${$@:-bash}"
   docker exec -ti ${cntnr} ${cmd}
 }
 
