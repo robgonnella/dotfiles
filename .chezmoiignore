@@ -11,3 +11,8 @@ Snapfile.sh
 .config/iterm2/
 .config/iterm2/**/*
 {{- end }}
+
+{{- if ne .enable_ssh_config "yes" }}
+.ssh/id_rsa
+.ssh/id_rsa.pub
+{{- end }}

@@ -1,6 +1,7 @@
 {{ $email := promptString "git email" -}}
 {{ $name := promptString "git name (default: Rob Gonnella)" | default "Rob Gonnella" -}}
 {{ $github_username := promptString "github username (default: robgonnella)" | default "robgonnella" -}}
+{{ $enable_ssh_config := promptString "enable_ssh_config (default: yes)" | default "yes" -}}
 
 encryption: "age"
 age:
@@ -11,6 +12,7 @@ data:
   email: {{ $email }}
   name: {{ $name }}
   github_username: {{ $github_username }}
+  enable_ssh_config: {{ $enable_ssh_config }}
 
 edit:
   command: code
