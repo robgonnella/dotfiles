@@ -1,3 +1,4 @@
+# python build dependencies and snapd
 sudo apt update && sudo apt install -y \
   build-essential \
   curl \
@@ -15,6 +16,7 @@ sudo apt update && sudo apt install -y \
   xz-utils \
   zlib1g-dev
 
+# install docker on linux
 if ! command -v docker; then
   curl -fsSL https://get.docker.com | sudo sh -
   sudo systemctl enable docker
