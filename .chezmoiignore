@@ -3,7 +3,7 @@
 
 Aptfile.sh
 Brewfile
-Snapfile
+Snapfile.sh
 
 {{- if ne .chezmoi.os "darwin" }}
 # only manage these items on mac

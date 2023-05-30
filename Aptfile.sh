@@ -14,3 +14,10 @@ sudo apt update && sudo apt install -y \
   tk-dev \
   xz-utils \
   zlib1g-dev
+
+if ! command -v docker; then
+  curl -fsSL https://get.docker.com | sudo sh -
+  sudo systemctl enable docker
+  sudo groupadd docker || true
+  sudo usermod -aG docker $USER
+fi
