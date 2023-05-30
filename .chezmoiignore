@@ -7,5 +7,6 @@ Snapfile.sh
 
 {{- if ne .chezmoi.os "darwin" }}
 # only manage these items on mac
-.iterm
+.config/iterm/
+.config/iterm/**/*
 {{- end }}
