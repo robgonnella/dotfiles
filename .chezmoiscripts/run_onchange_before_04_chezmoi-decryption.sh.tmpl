@@ -6,6 +6,9 @@
 
 {{- if eq .chezmoi.os "linux" }}
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{- else if eq .chezmoi.os "darwin" }}
+[[ -f /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -f /usr/local/bin/brew ]] && eval "$(/usr/local/bin/brew shellenv)"
 {{- end }}
 
 [[ ! -d "${HOME}/.config/age" ]] && mkdir -p "${HOME}/.config/age"
