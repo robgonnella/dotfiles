@@ -14,8 +14,18 @@
 [[ -f /usr/local/bin/brew ]] && eval "$(/usr/local/bin/brew shellenv)"
 {{- else if eq .chezmoi.os "linux" }}
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# install apt packages
 {{ .chezmoi.sourceDir }}/Aptfile.sh
+# install snap packages
 {{ .chezmoi.sourceDir }}/Snapfile.sh
 {{- end }}
 
+# install homebrew packages
 brew bundle --no-lock --file "{{ .chezmoi.sourceDir }}/Brewfile"
+
+# install rust
+curl \
+  --proto '=https' \
+  --tlsv1.2 \
+  -sSf \
+  https://sh.rustup.rs | sh -s -- --no-modify-path -y
