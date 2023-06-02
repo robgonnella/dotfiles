@@ -23,9 +23,11 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # install homebrew packages
 brew bundle --no-lock --file "{{ .chezmoi.sourceDir }}/Brewfile"
 
-# install rust
-curl \
-  --proto '=https' \
-  --tlsv1.2 \
-  -sSf \
-  https://sh.rustup.rs | sh -s -- --no-modify-path -y
+if ! command -v rustc; then
+  # install rust
+  curl \
+    --proto '=https' \
+    --tlsv1.2 \
+    -sSf \
+    https://sh.rustup.rs | sh -s -- --no-modify-path -y
+fi
