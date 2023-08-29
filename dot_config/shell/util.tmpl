@@ -21,7 +21,7 @@ serve() {
 
 t() {
   local re='^[0-9]+$'
-  local depth=2
+  local depth=1
   if [[ "$1" =~ "$re" ]]; then
     depth=$1
     shift
