@@ -16,6 +16,20 @@ serve() {
 }
 
 #######################################
+# Wrapper around tree command
+#######################################
+
+t() {
+  local re='^[0-9]+$'
+  local depth=2
+  if [[ "$1" =~ "$re" ]]; then
+    depth=$1
+    shift
+  fi
+  tree -L $depth $@
+}
+
+#######################################
 # List any open sockets on several popular
 # ports or pass a specific port to check.
 # Useful if a rogue server is running.
