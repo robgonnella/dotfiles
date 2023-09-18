@@ -1,11 +1,15 @@
 ########
 # oh-my-zsh
 ########
+
+# disable oh-my-zsh auto updating since it's managed by chezmoi
+DISABLE_AUTO_UPDATE="true"
+
 export ZSH="$HOME/.oh-my-zsh"
 fpath=($fpath ${ZSH}/custom/themes/pure)
 autoload -U promptinit; promptinit
 prompt pure
-plugins=(git aws)
+plugins=(git tmux aws)
 source $ZSH/oh-my-zsh.sh
 
 EMOJIS=(🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐻 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐵 🙈 🙉 🙊 🐒 🐔 🐧
