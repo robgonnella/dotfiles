@@ -2,6 +2,7 @@
 sudo apt update && sudo apt install -y \
   build-essential \
   curl \
+  just \
   libbz2-dev \
   libffi-dev \
   liblzma-dev \
