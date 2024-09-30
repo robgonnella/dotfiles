@@ -6,10 +6,15 @@
 DISABLE_AUTO_UPDATE="true"
 
 export ZSH="$HOME/.oh-my-zsh"
-fpath=($fpath ${ZSH}/custom/themes/pure)
+
+fpath=(${ZSH}/custom/themes/pure $fpath)
+fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
+
 autoload -U promptinit; promptinit
 prompt pure
+
 plugins=(git brew tmux aws)
+
 source $ZSH/oh-my-zsh.sh
 
 EMOJIS=(🐶 🐭 🐹 🐰 🦊 🐻 🐼 🐻 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐔 🐧 🐦 🦆 🦅 🦉 🦇 🐺 🐗 🐴 🦄 🐝
@@ -24,6 +29,8 @@ PROMPT="${SELECTED_EMOJI} ${PROMPT}"
 # Extra shell config
 if [ -d $HOME/.config/shell ]; then
   for f in $HOME/.config/shell/*; do
-    source $f
+    if [ -f $f ]; then
+      source $f
+    fi
   done
 fi
