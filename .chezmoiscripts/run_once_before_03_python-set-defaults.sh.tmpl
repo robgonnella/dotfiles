@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PYTHON_VERSION="3.11.3"
+PYTHON_VERSION="3.12.6"
 
 {{- if eq .chezmoi.os "linux" }}
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -12,9 +12,13 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 if ! command -v python; then
   {{- if eq .chezmoi.os "darwin" }}
   pyenv install $PYTHON_VERSION
+  pyenv global $PYTHON_VERSION
+  pipx install poetry --python=3.12.6
   {{- else if eq .chezmoi.os "linux" }}
   CPPFLAGS="-I$(brew --prefix openssl)/include" \
   LDFLAGS="-L$(brew --prefix openssl)/lib" \
   pyenv install $PYTHON_VERSION
+  pyenv global $PYTHON_VERSION
+  pipx install poetry --python=3.12.6
   {{- end }}
 fi
