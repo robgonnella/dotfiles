@@ -3,6 +3,12 @@
 # Ensure this script runs on Brewfile changes by including a hash of its file contents:
 # Brewfile: {{ include "Brewfile" | sha256sum }}
 
+log() {
+  echo
+  echo -e "\033[1;36m===> $1\033[0m"
+  echo
+}
+
 {{- if eq .chezmoi.os "darwin" }}
 [[ -f /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 [[ -f /usr/local/bin/brew ]] && eval "$(/usr/local/bin/brew shellenv)"
@@ -10,14 +16,17 @@
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end }}
 
-# install homebrew packages
-brew bundle --no-lock --file "{{ .chezmoi.sourceDir }}/Brewfile"
+{{- if eq .chezmoi.os "linux" }}
+# must brew install gcc on linux first
+log "Installing gcc on linux as prerequisite"
+brew install gcc
+{{- end }}
 
-if ! command -v rustc; then
-  # install rust
-  curl \
-    --proto '=https' \
-    --tlsv1.2 \
-    -sSf \
-    https://sh.rustup.rs | sh -s -- --no-modify-path -y
-fi
+# install homebrew packages
+log "Installing from Brewfile"
+{{- if eq .chezmoi.os "darwin" }}
+brew bundle --no-lock --file "{{ .chezmoi.sourceDir }}/Brewfile"
+{{- else if eq .chezmoi.os "linux" }}
+# allow failure due to unsupported packages on linux
+brew bundle --no-lock --file "{{ .chezmoi.sourceDir }}/Brewfile" || true
+{{- end }}
