@@ -22,9 +22,14 @@ EMOJIS=(🐶 🐭 🐹 🐰 🦊 🐻 🐼 🐻 🐨 🐯 🦁 🐮 🐷 🐽 �
 🐄 🐎 🐖 🐏 🐐 🦌 🐕 🐩 🐈 🐓 🦃 🐇 🐁 🐀 🦔 🐾 🐉 🐲 🌵 🌲 🌳 🌴 🌱 🌿 🍀 🎍 🎋 🍃 🍂 🍁
 🍄 🌾 🌹 🥀 🌺 🌸 🌻 🌛 🌜 🌕 🌙 🌎 🌍 🌏 ✨ ⚡️ 💥 🔥 ⛅️ ⛄️ 💨 💧 💦 ☔️ 🌊)
 
-SELECTED_EMOJI="${EMOJIS[$RANDOM % ${#EMOJIS[@]}]}"
+SELECTED_EMOJI="${EMOJIS[$RANDOM % ${#EMOJIS[@]} + 1]}"
 
 PROMPT="${SELECTED_EMOJI} ${PROMPT}"
+
+ASCIIS=($HOME/.config/launch/*.txt)
+SELECTED_ASCII="${ASCIIS[$RANDOM % ${#ASCIIS[@]} + 1]}"
+
+cat "${SELECTED_ASCII}"
 
 # Extra shell config
 if [ -d $HOME/.config/shell ]; then
