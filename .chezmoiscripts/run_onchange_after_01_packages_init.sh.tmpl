@@ -1,19 +1,13 @@
 #!/usr/bin/env zsh
 
-# Ensure this script runs on .vimrc changes by including a hash of its file contents:
-# dot_vimrc: {{ include "dot_vimrc" | sha256sum }}
-
-# Ensure this script runs on .tmux.conf changes by including a hash of its file contents:
-# .tmux.conf: {{ include "dot_tmux.conf" | sha256sum }}
-
 PYTHON_VERSION=3.12.6
 
 source $HOME/.zshrc
 
 log() {
-  echo
-  echo -e "\033[1;36m===> $1\033[0m"
-  echo
+    echo
+    echo -e "\033[1;36m===> $1\033[0m"
+    echo
 }
 
 # atuin setup
@@ -22,68 +16,80 @@ atuin import auto
 
 {{- if eq .chezmoi.os "linux" }}
 if ! command -v tfswitch >/dev/null 2>&1; then
-  log "Installing tfswitch on linux"
-  curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/master/install.sh | bash
+    log "Installing tfswitch on linux"
+    curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/master/install.sh | bash
 fi
 {{- end }}
 
 # install python
 if ! command -v python >/dev/null 2>&1; then
-  log "Installing python via pyenv"
-  pyenv install $PYTHON_VERSION
-  pyenv global $PYTHON_VERSION
-  log "Installing poetry via pipx"
-  pipx install poetry --python=$PYTHON_VERSION
+    log "Installing python via pyenv"
+    pyenv install $PYTHON_VERSION
+    pyenv global $PYTHON_VERSION
+    log "Installing poetry via pipx"
+    pipx install poetry --python=$PYTHON_VERSION
 fi
 
 # install node
 if ! command -v node >/dev/null 2>&1; then
-  log "Installing node via volta"
-  volta install node
+    log "Installing node via volta"
+    volta install node
 fi
 
 # install deno
 if ! command -v dvm >/dev/null 2>&1; then
-  log "Installing dvm to manage deno versions"
-  curl -fsSL https://dvm.deno.dev | sh
+    log "Installing dvm to manage deno versions"
+    curl -fsSL https://dvm.deno.dev | sh
 fi
 
 if ! command -v deno >/dev/null 2>&1; then
-  log "Installing deno via dvm"
-  dvm install
+    log "Installing deno via dvm"
+    dvm install
 fi
 
 # install rust
 if ! command -v rustc >/dev/null 2>&1; then
-  log "Installing rust"
-  curl \
-    --proto '=https' \
-    --tlsv1.2 \
-    -sSf \
-    https://sh.rustup.rs | sh -s -- --no-modify-path -y
+    log "Installing rust"
+    curl \
+        --proto '=https' \
+        --tlsv1.2 \
+        -sSf \
+        https://sh.rustup.rs | sh -s -- --no-modify-path -y
 fi
 
 # configure poetry plugin for oh-my-zsh
 if [ ! -d $HOME/.oh-my-zsh/plugins/poetry ]; then
     log "Configuring poetry plugin for oh-my-zsh"
     mkdir -p $HOME/.oh-my-zsh/plugins/poetry
-    poetry completions zsh > $HOME/.oh-my-zsh/plugins/poetry/_poetry
+    poetry completions zsh >$HOME/.oh-my-zsh/plugins/poetry/_poetry
 fi
 
-# install tmux plugins
-log "Installing tmux plugins"
-{{ .chezmoi.homeDir }}/.tmux/plugins/tpm/bin/install_plugins
-
-# install vim plugins
-log "Installing vim plugins"
-vim +PluginInstall +qall
-
+# install helm plugins
 if ! helm plugin list | grep diff; then
-  helm plugin install https://github.com/databus23/helm-diff
+    helm plugin install https://github.com/databus23/helm-diff
 fi
 
 if ! helm plugin list | grep helm-git; then
-  helm plugin install https://github.com/aslafy-z/helm-git
+    helm plugin install https://github.com/aslafy-z/helm-git
 fi
+
+# install language servers and formatters
+log "Installing language servers and formatters"
+go install mvdan.cc/sh/v3/cmd/shfmt@latest
+go install github.com/lasorda/protobuf-language-server@latest
+go install github.com/go-delve/delve/cmd/dlv@latest
+go install golang.org/x/tools/gopls@latest
+
+npm i -g bash-language-server
+npm i -g typescript typescript-language-server
+npm i -g vscode-langservers-extracted
+npm i -g prettier eslint eslint-config
+npm i -g dockerfile-language-server-nodejs
+npm i -g @microsoft/compose-language-service
+npm i -g yaml-language-server
+npm i -g @prisma/language-server
+
+pipx install "python-lsp-server[all]"
+pipx install black
 
 log 'Setup Complete'
