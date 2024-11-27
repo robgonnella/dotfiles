@@ -1,0 +1,20 @@
+layout {
+    tab {
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+        pane split_direction="vertical" {
+            pane cwd="~/code"
+            pane split_direction="horizontal" {
+                pane cwd="~/code"
+                pane cwd="~/code"
+            }
+        }
+    }
+    tab {
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+        pane cwd="~/code"
+    }
+}
