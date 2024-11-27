@@ -28,6 +28,12 @@ fi
 eval "$(atuin init zsh)"
 
 ########
+# z
+########
+_Z_DATA="$HOME/.z/zdata"
+source ~/.z/z.sh
+
+########
 # rust
 ########
 source "$HOME/.cargo/env"
@@ -69,3 +75,9 @@ eval "$(rbenv init -)"
 ########
 export DVM_DIR="$HOME/.dvm"
 export PATH="$DVM_DIR/bin:$PATH"
+
+########
+# default editor
+########
+export EDITOR=hx
+
