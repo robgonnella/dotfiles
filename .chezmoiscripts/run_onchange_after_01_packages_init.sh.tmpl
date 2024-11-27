@@ -64,12 +64,26 @@ if [ ! -d $HOME/.oh-my-zsh/plugins/poetry ]; then
     poetry completions zsh >$HOME/.oh-my-zsh/plugins/poetry/_poetry
 fi
 
+{{- if eq .terminal_multiplexer "tmux" }}
+# install tmux plugins
+log "Installing tmux plugins"
+{{ .chezmoi.homeDir }}/.tmux/plugins/tpm/bin/install_plugins
+{{- end }}
+
+{{- if eq .editor "vim" }}
+# install vim plugins
+log "Installing vim plugins"
+vim +PluginInstall +qall
+{{- end }}
+
 # install helm plugins
 if ! helm plugin list | grep diff; then
+    log "Installing helm-diff"
     helm plugin install https://github.com/databus23/helm-diff
 fi
 
 if ! helm plugin list | grep helm-git; then
+    log "Installing helm-git"
     helm plugin install https://github.com/aslafy-z/helm-git
 fi
 
@@ -80,16 +94,15 @@ go install github.com/lasorda/protobuf-language-server@latest
 go install github.com/go-delve/delve/cmd/dlv@latest
 go install golang.org/x/tools/gopls@latest
 
-npm i -g bash-language-server
-npm i -g typescript typescript-language-server
-npm i -g vscode-langservers-extracted
-npm i -g prettier eslint eslint-config
-npm i -g dockerfile-language-server-nodejs
-npm i -g @microsoft/compose-language-service
-npm i -g yaml-language-server
-npm i -g @prisma/language-server
+npm i -g bash-language-server \
+    typescript typescript-language-server \
+    vscode-langservers-extracted \
+    prettier eslint eslint-config \
+    dockerfile-language-server-nodejs \
+    @microsoft/compose-language-service \
+    yaml-language-server \
+    @prisma/language-server
 
-pipx install "python-lsp-server[all]"
-pipx install black
+pipx install "python-lsp-server[all]" black
 
 log 'Setup Complete'

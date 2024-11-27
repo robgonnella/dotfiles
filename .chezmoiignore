@@ -12,3 +12,22 @@ Snapfile.sh
 .ssh/id_rsa
 .ssh/id_rsa.pub
 {{- end }}
+
+{{- if ne .editor "helix" }}
+.config/helix
+{{- end }}
+
+{{- if ne .editor "vim" }}
+.vim/
+.vimrc
+{{- end }}
+
+{{- if ne .terminal_multiplexer "zelij" }}
+.config/zellij
+{{- end }}
+
+{{- if ne .terminal_multiplexer "tmux" }}
+.tmux.conf
+.tmux/
+{{- end }}
+

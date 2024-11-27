@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Ensure this script runs on Brewfile changes by including a hash of its file contents:
-# Brewfile: {{ include "Brewfile" | sha256sum }}
+# Ensure this script runs on Brewfile.tmpl changes by including a hash of its file contents:
+# Brewfile.tmpl: {{ include ".chezmoitemplates/Brewfile.tmpl" | sha256sum }}
 
 log() {
-  echo
-  echo -e "\033[1;36m===> $1\033[0m"
-  echo
+    echo
+    echo -e "\033[1;36m===> $1\033[0m"
+    echo
 }
 
 {{- if eq .chezmoi.os "darwin" }}
@@ -23,10 +23,7 @@ brew install gcc
 {{- end }}
 
 # install homebrew packages
-log "Installing from Brewfile"
-{{- if eq .chezmoi.os "darwin" }}
-brew bundle --no-lock --file "{{ .chezmoi.sourceDir }}/Brewfile"
-{{- else if eq .chezmoi.os "linux" }}
-# allow failure due to unsupported packages on linux
-brew bundle --no-lock --file "{{ .chezmoi.sourceDir }}/Brewfile" || true
-{{- end }}
+log "Installing Homebrew packages"
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ template "Brewfile.tmpl" . }}
+EOF

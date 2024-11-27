@@ -1,20 +1,44 @@
-{{ $email := promptString "git email" -}}
-{{ $name := promptString "git name (default: Rob Gonnella)" | default "Rob Gonnella" -}}
-{{ $github_username := promptString "github username (default: robgonnella)" | default "robgonnella" -}}
-{{ $enable_ssh_config := promptString "enable_ssh_config (default: yes)" | default "yes" -}}
+{{- $email := promptString "Enter your email address" }}
+{{- $name := promptString "Enter your full name (default: Rob Gonnella)" | default "Rob Gonnella" }}
+{{- $github_username := promptString "Enter your github username (default: robgonnella)" | default "robgonnella" -}}
+
+{{- $ssh_choices := list "yes" "no" -}}
+{{- $enable_ssh_config := promptChoice "Do you want to sync ssh config" $ssh_choices }}
+
+{{- $terminal_choices := list "iterm2" "wezterm" }}
+{{- $terminal := promptChoice "Choose your terminal" $terminal_choices }}
+
+{{- $term_mux_choices := list "tmux" "zellij" -}}
+{{- $term_mux := promptChoice "Choose your terminal multiplexer" $term_mux_choices }}
+
+{{- $editor_choices := list "vim" "helix" "vscode" }}
+{{- $editor := promptChoice "Choose your editor" $editor_choices }}
+
+{{- $editor_launch_cmd := "code" }}
+{{- if eq $editor "vim" }}
+{{- $editor_launch_cmd = "vim" }}
+{{- else if eq $editor "helix" }}
+{{- $editor_launch_cmd = "hx" }}
+{{- end }}
 
 encryption: "age"
+{{- if eq $enable_ssh_config "yes" }}
 age:
   identity: "~/.config/age/key"
   recipient: "age1lje4xg6ru43hg6tscaupsfma4uy7wd5m6ys09ef9ph5tpxjwd54stg2jl6"
+{{- end }}
 
 data:
   email: {{ $email }}
   name: {{ $name }}
   github_username: {{ $github_username }}
   enable_ssh_config: {{ $enable_ssh_config }}
+  terminal_multiplexer: {{ $term_mux }}
+  editor: {{ $editor }}
+  editor_launch_cmd: {{ $editor_launch_cmd }}
+  terminal: {{ $terminal }}
 
 edit:
-  command: code
+  command: {{ $editor_launch_cmd }}
   args:
     - --wait
