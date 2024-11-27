@@ -87,6 +87,7 @@ if ! helm plugin list | grep helm-git; then
     helm plugin install https://github.com/aslafy-z/helm-git
 fi
 
+{{- if eq .editor "helix" }}
 # install language servers and formatters
 log "Installing language servers and formatters"
 go install mvdan.cc/sh/v3/cmd/shfmt@latest
@@ -104,5 +105,6 @@ npm i -g bash-language-server \
     @prisma/language-server
 
 pipx install "python-lsp-server[all]" black
+{{- end }}
 
 log 'Setup Complete'
