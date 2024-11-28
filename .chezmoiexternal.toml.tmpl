@@ -33,7 +33,7 @@ exact = true
 stripComponents = 1
 refreshPeriod = "168h"
 
-{{- if eq .editor "tmux" }}
+{{- if eq .terminal_multiplexer "tmux" }}
 [".tmux/plugins/tpm"]
 type = "git-repo"
 url = "https://github.com/tmux-plugins/tpm"

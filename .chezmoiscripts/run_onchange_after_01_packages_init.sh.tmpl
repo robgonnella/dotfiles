@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+# Ensure this script runs on Brewfile.tmpl changes by including a hash of its file contents:
+# Brewfile.tmpl: {{ include ".chezmoitemplates/Brewfile.tmpl" | sha256sum }}
+
 PYTHON_VERSION=3.12.6
 
 source $HOME/.zshrc
@@ -77,12 +80,12 @@ vim +PluginInstall +qall
 {{- end }}
 
 # install helm plugins
-if ! helm plugin list | grep diff; then
+if ! helm plugin list | grep diff >/dev/null 2>&1; then
     log "Installing helm-diff"
     helm plugin install https://github.com/databus23/helm-diff
 fi
 
-if ! helm plugin list | grep helm-git; then
+if ! helm plugin list | grep helm-git >/dev/null 2>&1; then
     log "Installing helm-git"
     helm plugin install https://github.com/aslafy-z/helm-git
 fi
