@@ -58,6 +58,24 @@ brew 'zellij'
 brew 'vim'
 {{- else if eq .editor "helix" }}
 brew 'helix'
+brew 'taplo'
+brew 'helm-ls'
+brew 'hashicorp/tap/terraform-ls'
+brew 'shellcheck'
+{{- if eq .terminal_multiplexer "zellij" }}
+brew 'yazi'
+brew 'ffmpegthumbnailer'
+brew 'ffmpeg'
+brew 'sevenzip'
+brew 'jq'
+brew 'poppler'
+brew 'fd'
+brew 'ripgrep'
+brew 'fzf'
+brew 'zoxide'
+brew 'imagemagick'
+cask 'font-symbols-only-nerd-font'
+{{- end }}
 {{- else if eq .editor "vscode" }}
 cask 'visual-studio-code'
 {{- end }}
