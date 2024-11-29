@@ -22,7 +22,7 @@ Snapfile.sh
 .vimrc
 {{- end }}
 
-{{- if ne .terminal_multiplexer "zelij" }}
+{{- if ne .terminal_multiplexer "zellij" }}
 .config/zellij
 {{- end }}
 

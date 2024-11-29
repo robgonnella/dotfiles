@@ -1,7 +1,7 @@
 layout {
     tab {
         pane size=1 borderless=true {
-            plugin location="zellij:compact-bar"
+            plugin location="zellij:tab-bar"
         }
         pane split_direction="vertical" {
             pane cwd="~/code"
@@ -10,11 +10,17 @@ layout {
                 pane cwd="~/code"
             }
         }
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
     }
     tab {
         pane size=1 borderless=true {
             plugin location="zellij:compact-bar"
         }
         pane cwd="~/code"
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
     }
 }
