@@ -60,6 +60,16 @@ if ! command -v rustc >/dev/null 2>&1; then
         https://sh.rustup.rs | sh -s -- --no-modify-path -y
 fi
 
+if ! cargo binstall --help >/dev/null 2>&1; then
+    log "Installing cargo binstall"
+    curl \
+        -L \
+        --proto '=https' \
+        --tlsv1.2 \
+        -sSf \
+        https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+fi
+
 # configure poetry plugin for oh-my-zsh
 if [ ! -d $HOME/.oh-my-zsh/plugins/poetry ]; then
     log "Configuring poetry plugin for oh-my-zsh"
@@ -107,6 +117,8 @@ npm i -g bash-language-server \
     @prisma/language-server
 
 pipx install "python-lsp-server[all]" black
+
+cargo binstall -y --git 'https://github.com/feel-ix-343/markdown-oxide' markdown-oxide
 {{- end }}
 
 log 'Setup Complete'
