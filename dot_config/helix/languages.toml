@@ -39,6 +39,9 @@ formatter = { command = 'npx', args = ["prettier", "--parser", "json"] }
 name = "css"
 formatter = { command = 'npx', args = ["prettier", "--parser", "css"] }
 
+[language-server.typescript-language-server.config.preferences]
+importModuleSpecifierPreference = "relative"
+
 [[language]]
 name = "javascript"
 formatter = { command = 'npx', args = ["prettier", "--parser", "typescript"] }
