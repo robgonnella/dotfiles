@@ -39,16 +39,21 @@ formatter = { command = 'npx', args = ["prettier", "--parser", "json"] }
 name = "css"
 formatter = { command = 'npx', args = ["prettier", "--parser", "css"] }
 
+[language-server.eslint-language-server]
+command = "vscode-eslint-language-server"
+
 [language-server.typescript-language-server.config.preferences]
 importModuleSpecifierPreference = "relative"
 
 [[language]]
 name = "javascript"
+language-servers = ['typescript-language-server', 'eslint-language-server']
 formatter = { command = 'npx', args = ["prettier", "--parser", "typescript"] }
 auto-format = true
 
 [[language]]
 name = "typescript"
+language-servers = ['typescript-language-server', 'eslint-language-server']
 formatter = { command = 'npx', args = ["prettier", "--parser", "typescript"] }
 auto-format = true
 
