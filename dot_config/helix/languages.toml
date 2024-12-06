@@ -44,13 +44,19 @@ importModuleSpecifierPreference = "relative"
 
 [[language]]
 name = "javascript"
-language-servers = ['typescript-language-server']
+language-servers = [
+  'typescript-language-server',
+  'vscode-eslint-language-server',
+]
 formatter = { command = 'npx', args = ["prettier", "--parser", "typescript"] }
 auto-format = true
 
 [[language]]
 name = "typescript"
-language-servers = ['typescript-language-server']
+language-servers = [
+  'typescript-language-server',
+  'vscode-eslint-language-server',
+]
 formatter = { command = 'npx', args = ["prettier", "--parser", "typescript"] }
 auto-format = true
 

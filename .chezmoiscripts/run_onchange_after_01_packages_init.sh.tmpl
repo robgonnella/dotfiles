@@ -108,9 +108,11 @@ go install github.com/lasorda/protobuf-language-server@latest
 go install github.com/go-delve/delve/cmd/dlv@latest
 go install golang.org/x/tools/gopls@latest
 
+# TODO update vscode-langservers-extracted once below issue is resolved
+# https://github.com/helix-editor/helix/pull/11315
 npm i -g bash-language-server \
     typescript typescript-language-server \
-    vscode-langservers-extracted \
+    vscode-langservers-extracted@4.8.0 \
     dockerfile-language-server-nodejs \
     @microsoft/compose-language-service \
     yaml-language-server \
