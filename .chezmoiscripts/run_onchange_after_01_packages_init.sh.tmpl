@@ -77,6 +77,15 @@ if [ ! -d $HOME/.oh-my-zsh/plugins/poetry ]; then
     poetry completions zsh >$HOME/.oh-my-zsh/plugins/poetry/_poetry
 fi
 
+# java setup
+if ! jenv versions | grep 17 >/dev/null 2>&1; then
+    jenv add "$(brew --prefix openjdk@17)/libexec/openjdk.jdk/Contents/Home"
+fi
+
+if [ "$(jenv global)" != "17" ]; then
+    jenv global 17
+fi
+
 {{- if eq .terminal_multiplexer "tmux" }}
 # install tmux plugins
 log "Installing tmux plugins"

@@ -12,6 +12,12 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end }}
 
 ########
+# set default vars
+########
+export EDITOR={{ .editor_launch_cmd }}
+export PAGER=""
+
+########
 # custom local scripts
 ########
 if [ -d "${HOME}/.local/bin" ]; then
@@ -77,7 +83,8 @@ export DVM_DIR="$HOME/.dvm"
 export PATH="$DVM_DIR/bin:$PATH"
 
 ########
-# default editor
+# java
 ########
-export EDITOR={{ .editor_launch_cmd }}
-
+PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+jenv enable-plugin export >/dev/null 2>&1
