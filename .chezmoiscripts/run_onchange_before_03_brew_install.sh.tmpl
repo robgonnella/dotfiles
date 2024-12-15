@@ -27,3 +27,9 @@ log "Installing Homebrew packages"
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{ template "Brewfile.tmpl" . }}
 EOF
+
+# install any other prerequisite tooling not available in homebrew
+if ! command -v mise >/dev/null 2>&1; then
+    log "Installing mise"
+    curl https://mise.run | sh
+fi

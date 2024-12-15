@@ -3,8 +3,6 @@
 # Ensure this script runs on Brewfile.tmpl changes by including a hash of its file contents:
 # Brewfile.tmpl: {{ include ".chezmoitemplates/Brewfile.tmpl" | sha256sum }}
 
-PYTHON_VERSION=3.12.6
-
 source $HOME/.zshrc
 
 log() {
@@ -17,47 +15,41 @@ log() {
 log "Importing shell history to atuin"
 atuin import auto
 
-{{- if eq .chezmoi.os "linux" }}
-if ! command -v tfswitch >/dev/null 2>&1; then
-    log "Installing tfswitch on linux"
-    curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/master/install.sh | bash
-fi
-{{- end }}
-
 # install python
 if ! command -v python >/dev/null 2>&1; then
-    log "Installing python via pyenv"
-    pyenv install $PYTHON_VERSION
-    pyenv global $PYTHON_VERSION
-    log "Installing poetry via pipx"
-    pipx install poetry --python=$PYTHON_VERSION
+    log "Installing python via mise"
+    mise use --global python@$(mise latest python)
+    log "Installing poetry via pipx"z
+    pipx install poetry --python=$(mise latest python)
 fi
 
 # install node
 if ! command -v node >/dev/null 2>&1; then
-    log "Installing node via volta"
-    volta install node
+    log "Installing node via mise"
+    mise use --global node
+fi
+
+# install terraform
+if ! command -v terraform >/dev/null 2>&1; then
+    log "Installing terraform via mise"
+    mise use --global terraform@1.7.4
 fi
 
 # install deno
-if ! command -v dvm >/dev/null 2>&1; then
-    log "Installing dvm to manage deno versions"
-    curl -fsSL https://dvm.deno.dev | sh
+if ! command -v deno >/dev/null 2>&1; then
+    log "Installing deno via mise"
+    mise use --global deno
 fi
 
-if ! command -v deno >/dev/null 2>&1; then
-    log "Installing deno via dvm"
-    dvm install
+# install golang
+if ! command -v go >/dev/null 2>&1; then
+    mise use --global go
 fi
 
 # install rust
 if ! command -v rustc >/dev/null 2>&1; then
-    log "Installing rust"
-    curl \
-        --proto '=https' \
-        --tlsv1.2 \
-        -sSf \
-        https://sh.rustup.rs | sh -s -- --no-modify-path -y
+    log "Installing rust via mise"
+    mise use --global rust
 fi
 
 if ! cargo binstall --help >/dev/null 2>&1; then
@@ -78,12 +70,8 @@ if [ ! -d $HOME/.oh-my-zsh/plugins/poetry ]; then
 fi
 
 # java setup
-if ! jenv versions | grep 17 >/dev/null 2>&1; then
-    jenv add "$(brew --prefix openjdk@17)/libexec/openjdk.jdk/Contents/Home"
-fi
-
-if [ "$(jenv global)" != "17" ]; then
-    jenv global 17
+if ! java --version >/dev/null 2>&1; then
+    mise use --global java@openjdk-17
 fi
 
 {{- if eq .terminal_multiplexer "tmux" }}

@@ -15,7 +15,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # set default vars
 ########
 export EDITOR={{ .editor_launch_cmd }}
-export PAGER=""
+# export PAGER=""
 
 ########
 # custom local scripts
@@ -40,51 +40,6 @@ _Z_DATA="$HOME/.z/zdata"
 source ~/.z/z.sh
 
 ########
-# rust
+# mise
 ########
-source "$HOME/.cargo/env"
-
-########
-# pyenv
-########
-PATH="$HOME/.pyenv/bin:$PATH"
-export PYENV_ROOT="${HOME}/.pyenv"
-if command -v pyenv >/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
-########
-# golang
-########
-export GOPATH="$HOME/go"
-PATH="${GOPATH}/bin:$PATH"
-
-########
-# volta
-########
-export VOLTA_HOME="$HOME/.volta"
-PATH="$VOLTA_HOME/bin:$PATH"
-
-########
-# direnv
-########
-eval "$(direnv hook zsh)"
-
-########
-# rbenv
-########
-PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
-########
-# deno
-########
-export DVM_DIR="$HOME/.dvm"
-export PATH="$DVM_DIR/bin:$PATH"
-
-########
-# java
-########
-PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-jenv enable-plugin export >/dev/null 2>&1
+eval "$($HOME/.local/bin/mise activate zsh)"
