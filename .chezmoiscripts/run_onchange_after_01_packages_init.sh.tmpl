@@ -19,8 +19,15 @@ atuin import auto
 if ! command -v python >/dev/null 2>&1; then
     log "Installing python via mise"
     mise use --global python@$(mise latest python)
-    log "Installing poetry via pipx"z
+    log "Installing poetry via pipx"
     pipx install poetry --python=$(mise latest python)
+fi
+
+# configure poetry plugin for oh-my-zsh
+if [ ! -d $HOME/.oh-my-zsh/plugins/poetry ]; then
+    log "Configuring poetry plugin for oh-my-zsh"
+    mkdir -p $HOME/.oh-my-zsh/plugins/poetry
+    poetry completions zsh >$HOME/.oh-my-zsh/plugins/poetry/_poetry
 fi
 
 # install node
@@ -41,8 +48,15 @@ if ! command -v deno >/dev/null 2>&1; then
     mise use --global deno
 fi
 
+# java setup
+if ! java --version >/dev/null 2>&1; then
+    log "Install java openjdk17 via mise"
+    mise use --global java@openjdk-17
+fi
+
 # install golang
 if ! command -v go >/dev/null 2>&1; then
+    log "Installing golang via mise"
     mise use --global go
 fi
 
@@ -52,6 +66,9 @@ if ! command -v rustc >/dev/null 2>&1; then
     mise use --global rust
 fi
 
+log "Activating mise for rest of tooling setup"
+eval "$(mise activate zsh)"
+
 if ! cargo binstall --help >/dev/null 2>&1; then
     log "Installing cargo binstall"
     curl \
@@ -60,18 +77,6 @@ if ! cargo binstall --help >/dev/null 2>&1; then
         --tlsv1.2 \
         -sSf \
         https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
-fi
-
-# configure poetry plugin for oh-my-zsh
-if [ ! -d $HOME/.oh-my-zsh/plugins/poetry ]; then
-    log "Configuring poetry plugin for oh-my-zsh"
-    mkdir -p $HOME/.oh-my-zsh/plugins/poetry
-    poetry completions zsh >$HOME/.oh-my-zsh/plugins/poetry/_poetry
-fi
-
-# java setup
-if ! java --version >/dev/null 2>&1; then
-    mise use --global java@openjdk-17
 fi
 
 {{- if eq .terminal_multiplexer "tmux" }}
