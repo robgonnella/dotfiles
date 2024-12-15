@@ -2,7 +2,7 @@
 # Application Aliases
 # ================
 alias chrome='open -a "Google Chrome"'
-alias di='echo dotenv > .envrc && touch .env && direnv allow'
+alias miset='mkdir .mise && touch .mise/config.toml && mise trust'
 alias reload="clear; exec zsh -l"
 
 {{ if eq .chezmoi.os "darwin" -}}
