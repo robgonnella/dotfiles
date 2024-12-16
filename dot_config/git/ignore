@@ -98,6 +98,10 @@ tags
 .env
 .envrc
 
+# mise local #
+# recommended by https://mise.jdx.dev/configuration.html
+mise.local.toml
+
 # project notes #
 # ##############
 scratch/
