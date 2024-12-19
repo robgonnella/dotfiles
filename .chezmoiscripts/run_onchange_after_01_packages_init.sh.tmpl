@@ -18,9 +18,7 @@ atuin import auto
 # install python
 if ! command -v python >/dev/null 2>&1; then
     log "Installing python via mise"
-    mise use --global python@$(mise latest python)
-    log "Installing poetry via pipx"
-    pipx install poetry --python=$(mise latest python)
+    mise use --global python
 fi
 
 # configure poetry plugin for oh-my-zsh
@@ -113,7 +111,7 @@ go install golang.org/x/tools/gopls@latest
 # TODO update vscode-langservers-extracted once below issue is resolved
 # https://github.com/helix-editor/helix/pull/11315
 npm i -g bash-language-server \
-    typescript typescript-language-server \
+    typescript-language-server \
     vscode-langservers-extracted@4.8.0 \
     dockerfile-language-server-nodejs \
     @microsoft/compose-language-service \
