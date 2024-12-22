@@ -101,6 +101,12 @@ if ! helm plugin list | grep helm-git >/dev/null 2>&1; then
 fi
 
 {{- if eq .editor "helix" }}
+# install yazi plugins
+if ! ya pack --list | grep yazi-rs/plugins:git >/dev/null 2>&1; then
+    log "Installing yazi git plugin"
+    ya pack -a yazi-rs/plugins:git
+fi
+
 # install language servers and formatters
 log "Installing language servers and formatters"
 go install mvdan.cc/sh/v3/cmd/shfmt@latest

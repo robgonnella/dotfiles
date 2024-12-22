@@ -12,14 +12,8 @@ layout {
 
     tab {
         pane split_direction="vertical" {
-            pane cwd="~/code"
-            pane cwd="~/code"
-        }
-    }
-    tab {
-        pane split_direction="vertical" {
-            pane cwd="~/code"
-            pane cwd="~/code"
+            pane
+            pane
         }
     }
 }
