@@ -1,5 +1,18 @@
-format = '$all$directory$character'
+format = """
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$aws\
+$time\
+$shell
+$directory\
+$character"""
 
 [character]
 success_symbol = '[❯](bold green)'
 error_symbol = '[✗](bold red)'
+
+[aws]
+format = ' [$symbol($profile )]($style)'
