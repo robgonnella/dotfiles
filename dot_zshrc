@@ -7,35 +7,24 @@ DISABLE_AUTO_UPDATE="true"
 
 export ZSH="$HOME/.oh-my-zsh"
 
-fpath=(${ZSH}/custom/themes/pure $fpath)
 fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
-
-autoload -U promptinit; promptinit
-prompt pure
 
 plugins=(git brew aws poetry)
 
 source $ZSH/oh-my-zsh.sh
-
-EMOJIS=(🐶 🐭 🐹 🐰 🦊 🐻 🐼 🐻 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐔 🐧 🐦 🦆 🦅 🦉 🦇 🐺 🐗 🐴 🦄 🐝
-🐛 🦋 🐌 🐞 🦂 🐢 🐍 🦎 🦖 🦕 🐙 🦑 🦐 🐡 🐠 🐟 🐬 🐳 🐋 🦈 🐊 🐅 🐆 🦓 🦍 🐘 🐫 🦒 🐃 🐂
-🐄 🐎 🐖 🐏 🐐 🦌 🐕 🐩 🐈 🐓 🦃 🐇 🐁 🐀 🦔 🐾 🐉 🐲 🌵 🌲 🌳 🌴 🌱 🌿 🍀 🎍 🎋 🍃 🍂 🍁
-🍄 🌾 🌹 🥀 🌺 🌸 🌻 🌛 🌜 🌕 🌙 🌎 🌍 🌏 ✨ ⚡️ 💥 🔥 ⛅️ ⛄️ 💨 💧 💦 ☔️ 🌊)
-
-SELECTED_EMOJI="${EMOJIS[$RANDOM % ${#EMOJIS[@]} + 1]}"
-
-PROMPT="${SELECTED_EMOJI} ${PROMPT}"
 
 ASCIIS=($HOME/.config/launch/*.txt)
 SELECTED_ASCII="${ASCIIS[$RANDOM % ${#ASCIIS[@]} + 1]}"
 
 cat "${SELECTED_ASCII}"
 
+eval "$(starship init zsh)"
+
 # Extra shell config
 if [ -d $HOME/.config/shell ]; then
-  for f in $HOME/.config/shell/*; do
-    if [ -f $f ]; then
-      source $f
-    fi
-  done
+    for f in $HOME/.config/shell/*; do
+        if [ -f $f ]; then
+            source $f
+        fi
+    done
 fi
