@@ -13,13 +13,6 @@ plugins=(git brew aws poetry)
 
 source $ZSH/oh-my-zsh.sh
 
-ASCIIS=($HOME/.config/launch/*.txt)
-SELECTED_ASCII="${ASCIIS[$RANDOM % ${#ASCIIS[@]} + 1]}"
-
-cat "${SELECTED_ASCII}"
-
-eval "$(starship init zsh)"
-
 # Extra shell config
 if [ -d $HOME/.config/shell ]; then
     for f in $HOME/.config/shell/*; do
@@ -28,3 +21,10 @@ if [ -d $HOME/.config/shell ]; then
         fi
     done
 fi
+
+ASCIIS=($HOME/.config/launch/*.txt)
+SELECTED_ASCII="${ASCIIS[$RANDOM % ${#ASCIIS[@]} + 1]}"
+
+cat "${SELECTED_ASCII}"
+
+eval "$(starship init zsh)"
