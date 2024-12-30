@@ -31,3 +31,11 @@ Snapfile.sh
 .tmux/
 {{- end }}
 
+{{- if ne .terminal "wezterm" }}
+.wezterm.lua
+{{- end }}
+
+{{- if ne .terminal "ghostty" }}
+.config/ghostty
+{{- end }}
+

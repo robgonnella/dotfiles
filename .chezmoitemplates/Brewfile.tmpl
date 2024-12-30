@@ -46,6 +46,8 @@ cask 'zoom'
 cask 'iterm2'
 {{- else if eq .terminal "wezterm" }}
 cask 'wezterm'
+{{- else if eq .terminal "ghostty" }}
+cask 'ghostty'
 {{- end }}
 
 {{- if eq .terminal_multiplexer "tmux" }}

@@ -5,7 +5,7 @@
 {{- $ssh_choices := list "yes" "no" -}}
 {{- $enable_ssh_config := promptChoice "Do you want to sync ssh config" $ssh_choices }}
 
-{{- $terminal_choices := list "iterm2" "wezterm" }}
+{{- $terminal_choices := list "iterm2" "wezterm" "ghostty" }}
 {{- $terminal := promptChoice "Choose your terminal" $terminal_choices }}
 
 {{- $term_mux_choices := list "tmux" "zellij" -}}
