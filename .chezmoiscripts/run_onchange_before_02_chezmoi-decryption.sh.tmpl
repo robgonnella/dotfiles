@@ -1,4 +1,4 @@
-{{- if eq .enable_ssh_config "yes" }}
+{{ if eq .enable_ssh_config "yes" -}}
 #!/bin/bash
 
 # Ensure this script runs on file changes by including a hash of its file contents:
@@ -14,7 +14,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 [[ ! -d "${HOME}/.config/age" ]] && mkdir -p "${HOME}/.config/age"
 
 if [ ! -f "${HOME}/.config/age/key" ]; then
-  age --decrypt --output "${HOME}/.config/age/key" "{{ .chezmoi.sourceDir }}/dot_config/age/key.age"
+  chezmoi age decrypt --output "${HOME}/.config/age/key" --passphrase "{{ .chezmoi.sourceDir }}/dot_config/age/key.age"
   chmod 600 "${HOME}/.config/age/key"
 fi
 {{- end }}
