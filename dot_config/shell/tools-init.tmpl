@@ -29,6 +29,11 @@ if [ -d "${HOME}/bin" ]; then
 fi
 
 ########
+# llvm
+########
+PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
+
+########
 # atuin
 ########
 eval "$(atuin init zsh)"
