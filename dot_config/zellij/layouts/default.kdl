@@ -10,7 +10,7 @@ layout {
         }
     }
 
-    tab {
+    tab name="term" {
         pane split_direction="vertical" {
             pane
             pane

@@ -102,6 +102,12 @@ tags
 # recommended by https://mise.jdx.dev/configuration.html
 mise.local.toml
 
+# helix
+.helix/
+
+# zed
+.zed/
+
 # project notes #
 # ##############
 scratch/
