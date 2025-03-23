@@ -24,6 +24,6 @@ brew install gcc
 
 # install homebrew packages
 log "Installing Homebrew packages"
-brew bundle --no-lock --file=/dev/stdin <<EOF
+brew bundle --file=/dev/stdin <<EOF
 {{ template "Brewfile.tmpl" . }}
 EOF
