@@ -12,33 +12,3 @@ Snapfile.sh
 .ssh/id_rsa
 .ssh/id_rsa.pub
 {{- end }}
-
-{{- if ne .editor "helix" }}
-.config/helix
-{{- end }}
-
-{{- if ne .editor "vim" }}
-.vim/
-.vimrc
-{{- end }}
-
-{{- if ne .editor "zed" }}
-.config/zed
-{{- end }}
-
-{{- if ne .terminal_multiplexer "zellij" }}
-.config/zellij
-{{- end }}
-
-{{- if ne .terminal_multiplexer "tmux" }}
-.tmux.conf
-.tmux/
-{{- end }}
-
-{{- if ne .terminal "wezterm" }}
-.wezterm.lua
-{{- end }}
-
-{{- if ne .terminal "ghostty" }}
-.config/ghostty
-{{- end }}

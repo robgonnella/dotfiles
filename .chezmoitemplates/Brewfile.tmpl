@@ -16,50 +16,8 @@ brew 'gnu-time'
 brew 'gnutls'
 brew 'gomplate'
 brew 'grep'
-brew 'helm'
-brew 'helmfile'
-brew 'jq'
-brew 'just'
-brew 'k9s'
-brew 'kubectx'
-brew 'kubernetes-cli'
-brew 'mise'
-brew 'pipx'
-brew 'ripgrep'
-brew 'starship'
-brew 'telepresenceio/telepresence/telepresence-oss'
-brew 'tree'
-brew 'watch'
-brew 'yq'
-brew 'zsh'
 
-cask 'discord'
-cask 'docker'
-cask 'drawio'
-cask 'font-symbols-only-nerd-font'
-cask 'macdown'
-cask 'postman'
-cask 'rectangle'
-cask 'slack'
-cask 'zoom'
-
-{{- if eq .terminal "iterm2" }}
-cask 'iterm2'
-{{- else if eq .terminal "wezterm" }}
-cask 'wezterm'
-{{- else if eq .terminal "ghostty" }}
-cask 'ghostty'
-{{- end }}
-
-{{- if eq .terminal_multiplexer "tmux" }}
-brew 'tmux'
-{{- else if eq .terminal_multiplexer "zellij" }}
-brew 'zellij'
-{{- end }}
-
-{{- if eq .editor "vim" }}
-brew 'vim'
-{{- else if eq .editor "helix" }}
+# The following are related to helix-editor
 brew 'helix'
 brew 'llvm'
 brew 'ansible-language-server'
@@ -73,7 +31,6 @@ brew 'shellcheck'
 brew 'sql-language-server'
 brew 'typescript-language-server'
 brew 'yaml-language-server'
-{{- if eq .terminal_multiplexer "zellij" }}
 brew 'yazi'
 brew 'ffmpegthumbnailer'
 brew 'ffmpeg'
@@ -84,9 +41,36 @@ brew 'ripgrep'
 brew 'fzf'
 brew 'zoxide'
 brew 'imagemagick'
-{{- end }}
-{{- else if eq .editor "vscode" }}
-cask 'visual-studio-code'
-{{- else if eq .editor "zed" }}
+# end helix-editor deps
+
+brew 'helm'
+brew 'helmfile'
+brew 'jq'
+brew 'just'
+brew 'k9s'
+brew 'kubie'
+brew 'kubernetes-cli'
+brew 'mise'
+brew 'pipx'
+brew 'ripgrep'
+brew 'starship'
+brew 'telepresenceio/telepresence/telepresence-oss'
+brew 'tmux'
+brew 'tree'
+brew 'vim'
+brew 'watch'
+brew 'yq'
+brew 'zellij'
+brew 'zsh'
+
+cask 'discord'
+cask 'docker'
+cask 'drawio'
+cask 'font-symbols-only-nerd-font'
+cask 'ghostty'
+cask 'macdown'
+cask 'postman'
+cask 'rectangle'
+cask 'slack'
 cask 'zed'
-{{- end }}
+cask 'zoom'

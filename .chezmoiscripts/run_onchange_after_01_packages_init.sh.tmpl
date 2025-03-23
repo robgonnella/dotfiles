@@ -77,17 +77,13 @@ if ! cargo binstall --help >/dev/null 2>&1; then
         https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
 fi
 
-{{- if eq .terminal_multiplexer "tmux" }}
 # install tmux plugins
 log "Installing tmux plugins"
 {{ .chezmoi.homeDir }}/.tmux/plugins/tpm/bin/install_plugins
-{{- end }}
 
-{{- if eq .editor "vim" }}
 # install vim plugins
 log "Installing vim plugins"
 vim +PluginInstall +qall
-{{- end }}
 
 # install helm plugins
 if ! helm plugin list | grep diff >/dev/null 2>&1; then
@@ -100,7 +96,6 @@ if ! helm plugin list | grep helm-git >/dev/null 2>&1; then
     helm plugin install https://github.com/aslafy-z/helm-git
 fi
 
-{{- if eq .editor "helix" }}
 # install yazi plugins
 if ! ya pack --list | grep yazi-rs/plugins:git >/dev/null 2>&1; then
     log "Installing yazi git plugin"
@@ -125,6 +120,5 @@ npm i -g bash-language-server \
 pipx install "python-lsp-server[all]" black
 
 cargo binstall -y --git 'https://github.com/feel-ix-343/markdown-oxide' markdown-oxide
-{{- end }}
 
 log 'Setup Complete'

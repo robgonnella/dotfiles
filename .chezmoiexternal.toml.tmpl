@@ -26,14 +26,11 @@ exact = true
 stripComponents = 1
 refreshPeriod = "168h"
 
-{{- if eq .terminal_multiplexer "tmux" }}
 [".tmux/plugins/tpm"]
 type = "git-repo"
 url = "https://github.com/tmux-plugins/tpm"
 refreshPeriod = "168h"
-{{- end }}
 
-{{- if eq .editor "vim" }}
 [".vim/bundle/Vundle.vim"]
 type = "archive"
 url = "https://github.com/VundleVim/Vundle.vim/archive/master.tar.gz"
@@ -44,4 +41,3 @@ refreshPeriod = "168h"
 type = "file"
 url = "https://raw.githubusercontent.com/romainl/Apprentice/master/colors/apprentice.vim"
 refreshPeriod = "168h"
-{{- end }}
