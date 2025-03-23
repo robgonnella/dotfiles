@@ -1,9 +1,7 @@
 theme = "nord-night"
 
 [keys.normal]
-{{- if eq .terminal_multiplexer "zellij" }}
 C-y = ":sh zellij run -c -f -x 0 -y 0 --width 100% --height 100% -- bash ~/.config/helix/yazi-picker.sh open"
-{{- end }}
 A-y = [":clipboard-yank"]
 A-m = ["extend_to_line_bounds", "yank", "paste_after"]
 A-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
