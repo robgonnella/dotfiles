@@ -11,10 +11,25 @@ A-k = [
   "move_line_up",
   "paste_before",
 ]
+C-d = [
+  ":clipboard-yank",
+  ":pipe-to add-to-dictionary `pbpaste`",
+  ":lsp-restart",
+]
 
 [editor]
 mouse = true
 rulers = [80]
+# Minimum severity to show a diagnostic after the end of a line:
+end-of-line-diagnostics = "hint"
+
+[editor.inline-diagnostics]
+# Minimum severity to show a diagnostic on the primary cursor's line.
+# Note that `cursor-line` diagnostics are hidden in insert mode.
+cursor-line = "error"
+# Minimum severity to show a diagnostic on other lines:
+# other-lines = "error"
+# hide-diag-when-inserting = true
 
 [editor.cursor-shape]
 insert = "bar"
