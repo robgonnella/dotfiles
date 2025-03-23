@@ -117,12 +117,10 @@ go install golang.org/x/tools/gopls@latest
 # TODO update vscode-langservers-extracted once below issue is resolved
 # https://github.com/helix-editor/helix/pull/11315
 npm i -g bash-language-server \
-    typescript-language-server \
     vscode-langservers-extracted@4.8.0 \
-    dockerfile-language-server-nodejs \
     @microsoft/compose-language-service \
-    yaml-language-server \
-    @prisma/language-server
+    @prisma/language-server \
+    @vlabo/cspell-lsp
 
 pipx install "python-lsp-server[all]" black
 

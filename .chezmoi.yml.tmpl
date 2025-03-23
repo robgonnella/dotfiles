@@ -11,7 +11,7 @@
 {{- $term_mux_choices := list "tmux" "zellij" -}}
 {{- $term_mux := promptChoice "Choose your terminal multiplexer" $term_mux_choices }}
 
-{{- $editor_choices := list "vim" "helix" "vscode" }}
+{{- $editor_choices := list "vim" "helix" "vscode" "zed" }}
 {{- $editor := promptChoice "Choose your editor" $editor_choices }}
 
 {{- $editor_launch_cmd := "code" }}
@@ -19,6 +19,8 @@
 {{- $editor_launch_cmd = "vim" }}
 {{- else if eq $editor "helix" }}
 {{- $editor_launch_cmd = "hx" }}
+{{- else if eq $editor "zed" }}
+{{- $editor_launch_cmd = "zed" }}
 {{- end }}
 
 encryption: "age"

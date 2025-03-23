@@ -1,0 +1,68 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "features": {
+    "edit_prediction_provider": "none"
+  },
+  "base_keymap": "VSCode",
+  "vim_mode": false,
+  "ui_font_size": 14,
+  "buffer_font_size": 14,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "VSCode Dark Modern"
+  },
+  "wrap_guides": [80],
+  "file_types": {
+    "Helm": ["**/helmfile.d/**/*.yaml", "**/*.gotmpl", "**/*.tmpl"],
+    "Dockerfile": ["Dockerfile*"]
+  },
+  "git": {
+    "inline_blame": {
+      "enabled": false
+    }
+  },
+  "auto_install_extensions": {
+    "dockerfile": true,
+    "docker-compose": true,
+    "html": true,
+    "ini": true,
+    "git-firefly": true,
+    "helm": true,
+    "java": true,
+    "just": true,
+    "make": true,
+    "one-dark-pro": true,
+    "php": true,
+    "prisma": true,
+    "pylsp": true,
+    "sql": true,
+    "terraform": true,
+    "toml": true,
+    "typos": true,
+    "vscode-dark-modern": true
+  },
+  "lsp": {
+    "vtsls": {
+      "settings": {
+        "javascript": {
+          "preferences": {
+            "importModuleSpecifier": "relative"
+          }
+        },
+        "typescript": {
+          "preferences": {
+            "importModuleSpecifier": "relative"
+          }
+        }
+      }
+    }
+  }
+}

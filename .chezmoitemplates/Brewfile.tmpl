@@ -62,11 +62,17 @@ brew 'vim'
 {{- else if eq .editor "helix" }}
 brew 'helix'
 brew 'llvm'
+brew 'ansible-language-server'
+brew 'bash-language-server'
+brew 'dockerfile-language-server'
 brew 'marksman'
 brew 'taplo'
 brew 'helm-ls'
 brew 'hashicorp/tap/terraform-ls'
 brew 'shellcheck'
+brew 'sql-language-server'
+brew 'typescript-language-server'
+brew 'yaml-language-server'
 {{- if eq .terminal_multiplexer "zellij" }}
 brew 'yazi'
 brew 'ffmpegthumbnailer'
@@ -81,4 +87,6 @@ brew 'imagemagick'
 {{- end }}
 {{- else if eq .editor "vscode" }}
 cask 'visual-studio-code'
+{{- else if eq .editor "vscode" }}
+cask 'zed'
 {{- end }}

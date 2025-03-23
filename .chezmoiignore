@@ -22,6 +22,10 @@ Snapfile.sh
 .vimrc
 {{- end }}
 
+{{- if ne .editor "zed" }}
+.config/zed
+{{- end }}
+
 {{- if ne .terminal_multiplexer "zellij" }}
 .config/zellij
 {{- end }}
@@ -38,4 +42,3 @@ Snapfile.sh
 {{- if ne .terminal "ghostty" }}
 .config/ghostty
 {{- end }}
-
