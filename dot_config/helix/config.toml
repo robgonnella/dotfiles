@@ -1,7 +1,6 @@
-theme = "nord-night"
+theme = "zed_onedark"
 
 [keys.normal]
-C-y = ":sh zellij run -c -f -x 0 -y 0 --width 100% --height 100% -- bash ~/.config/helix/yazi-picker.sh open"
 A-y = [":clipboard-yank"]
 A-m = ["extend_to_line_bounds", "yank", "paste_after"]
 A-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
@@ -11,33 +10,19 @@ A-k = [
   "move_line_up",
   "paste_before",
 ]
-C-d = [
-  ":clipboard-yank",
-  ":pipe-to add-to-dictionary `pbpaste`",
-  ":lsp-restart",
-]
 
 [editor]
 mouse = true
 rulers = [80]
 # Minimum severity to show a diagnostic after the end of a line:
-end-of-line-diagnostics = "hint"
+end-of-line-diagnostics = "warning"
 
 [editor.inline-diagnostics]
-# Minimum severity to show a diagnostic on the primary cursor's line.
-# Note that `cursor-line` diagnostics are hidden in insert mode.
+prefix-len = 10
 cursor-line = "error"
-# Minimum severity to show a diagnostic on other lines:
-# other-lines = "error"
-# hide-diag-when-inserting = true
+other-lines = "error"
 
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
 select = "underline"
-
-[editor.file-picker]
-hidden = false
-git-ignore = false
-git-global = false
-git-exclude = false

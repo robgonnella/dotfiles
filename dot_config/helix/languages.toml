@@ -1,59 +1,55 @@
-[language-server.cspell]
-command = "cspell-lsp"
-args = [
-  "--stdio",
-  "--dictionary",
-  "/Users/robert/.config/helix/cspell-dictionary",
-]
+[language-server.codebook]
+command = "codebook-lsp"
+args = ["serve"]
 
 [[language]]
 name = "rust"
-language-servers = ["rust-analyzer", "cspell"]
+language-servers = ["rust-analyzer", "codebook"]
 formatter = { command = "rustfmt" }
 auto-format = true
 
 [[language]]
 name = "go"
-language-servers = ["gopls", "cspell"]
+language-servers = ["gopls", "codebook"]
 auto-format = true
 
 [[language]]
 name = "toml"
-language-servers = ["taplo", "cspell"]
+language-servers = ["taplo", "codebook"]
 formatter = { command = "taplo", args = ["format", "-"] }
 auto-format = true
 
 [[language]]
 name = "bash"
-language-servers = ["bash-language-server", "cspell"]
+language-servers = ["bash-language-server", "codebook"]
 indent = { tab-width = 4, unit = "    " }
 formatter = { command = 'shfmt', args = ["-i", "4"] }
 auto-format = true
 
 [[language]]
 name = "python"
-language-servers = ["ruff", "jedi", "pylsp", "cspell"]
+language-servers = ["ruff", "jedi", "pylsp", "codebook"]
 formatter = { command = "black", args = ["--quiet", "-"] }
 auto-format = true
 
 [[language]]
 name = "markdown"
-language-servers = ["marksman", "cspell"]
+language-servers = ["marksman", "codebook"]
 formatter = { command = "prettier", args = ["--parser", "markdown"] }
 
 [[language]]
 name = "html"
-language-servers = ["vscode-html-language-server", "superhtml", "cspell"]
+language-servers = ["vscode-html-language-server", "superhtml", "codebook"]
 formatter = { command = "prettier", args = ["--parser", "html"] }
 
 [[language]]
 name = "json"
-language-servers = ["jsonnet-language-server", "cspell"]
+language-servers = ["jsonnet-language-server", "codebook"]
 formatter = { command = "prettier", args = ["--parser", "json"] }
 
 [[language]]
 name = "css"
-language-servers = ["vscode-css-language-server", "cspell"]
+language-servers = ["vscode-css-language-server", "codebook"]
 formatter = { command = "prettier", args = ["--parser", "css"] }
 
 [[language]]
@@ -61,7 +57,7 @@ name = "javascript"
 language-servers = [
   "typescript-language-server",
   "vscode-eslint-language-server",
-  "cspell",
+  "codebook",
 ]
 formatter = { command = "prettier", args = ["--parser", "typescript"] }
 auto-format = true
@@ -71,7 +67,7 @@ name = "typescript"
 language-servers = [
   "typescript-language-server",
   "vscode-eslint-language-server",
-  "cspell",
+  "codebook",
 ]
 formatter = { command = "prettier", args = ["--parser", "typescript"] }
 auto-format = true
@@ -84,21 +80,17 @@ name = "tsx"
 language-servers = [
   "typescript-language-server",
   "vscode-eslint-language-server",
-  "cspell",
+  "codebook",
 ]
 auto-format = true
 formatter = { command = "prettier", args = ["--parser", "typescript"] }
 
-# [[language]]
-# name = "yaml"
-# language-servers = [
-#   "yaml-language-server",
-#   "docker-compose-langserver",
-#   "cspell",
-# ]
-# auto-format = true
+[language-server.yaml-language-server.config.yaml]
+format = { enable = true }
+validation = true
 
 [[language]]
 name = "yaml"
 file-types = ["yaml", "yml"]
+language-servers = ["helm_ls", "codebook"]
 auto-format = true
