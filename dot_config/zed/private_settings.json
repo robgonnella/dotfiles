@@ -22,7 +22,8 @@
   "wrap_guides": [80],
   "file_types": {
     "Helm": ["**/helmfile.d/**/*.yaml", "**/*.gotmpl", "**/*.tmpl"],
-    "Dockerfile": ["Dockerfile*"]
+    "Dockerfile": ["Dockerfile*"],
+    "JSON": [".prettierrc"]
   },
   "git": {
     "inline_blame": {
@@ -30,6 +31,7 @@
     }
   },
   "auto_install_extensions": {
+    "codebook": true,
     "dockerfile": true,
     "docker-compose": true,
     "html": true,
@@ -44,9 +46,9 @@
     "prisma": true,
     "pylsp": true,
     "sql": true,
+    "svelte": true,
     "terraform": true,
     "toml": true,
-    "typos": true,
     "vscode-dark-modern": true
   },
   "lsp": {
