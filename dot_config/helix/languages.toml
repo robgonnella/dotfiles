@@ -87,10 +87,12 @@ formatter = { command = "prettier", args = ["--parser", "typescript"] }
 
 [language-server.yaml-language-server.config.yaml]
 format = { enable = true }
-validation = true
+validate = true
+hover = true
+schemaStore = { enable = true }
 
 [[language]]
 name = "yaml"
 file-types = ["yaml", "yml"]
-language-servers = ["helm_ls", "codebook"]
+language-servers = ["yaml-language-server", "codebook"]
 auto-format = true

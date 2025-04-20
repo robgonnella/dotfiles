@@ -10,6 +10,9 @@ layout {
         }
     }
 
+    tab name="editor" {
+        pane
+    }
     tab name="term" {
         pane split_direction="vertical" {
             pane
