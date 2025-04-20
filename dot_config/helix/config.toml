@@ -1,4 +1,7 @@
-theme = "zed_onedark"
+theme = "catppuccin_mocha"
+# theme = "onedarker"
+# theme = "zed_onedark"
+# theme = "dracula"
 
 [keys.normal]
 A-y = [":clipboard-yank"]

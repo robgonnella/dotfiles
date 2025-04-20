@@ -1,2 +1,5 @@
-theme = "NvimDark"
+theme = "catppuccin-mocha"
+# theme = "NvimDark"
+# theme = "Dracula"
+# theme = "Atom"
 font-size = 13.5
