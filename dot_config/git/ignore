@@ -108,6 +108,10 @@ mise.local.toml
 # zed
 .zed/
 
+# spell check dictionaries
+codebook.toml
+.codebook.toml
+
 # project notes #
 # ##############
 scratch/
