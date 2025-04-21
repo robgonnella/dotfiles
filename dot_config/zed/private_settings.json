@@ -16,8 +16,13 @@
   "buffer_font_size": 14,
   "theme": {
     "mode": "system",
-    "light": "One Light",
-    "dark": "VSCode Dark Modern"
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Mocha"
+  },
+  "icon_theme": {
+    "mode": "system",
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Mocha"
   },
   "wrap_guides": [80],
   "file_types": {
@@ -31,6 +36,8 @@
     }
   },
   "auto_install_extensions": {
+    "catppuccin": true,
+    "catppuccin-icons": true,
     "codebook": true,
     "dockerfile": true,
     "docker-compose": true,
