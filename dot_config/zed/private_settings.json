@@ -8,7 +8,7 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   "features": {
-    "edit_prediction_provider": "zed"
+    "edit_prediction_provider": "none"
   },
   "base_keymap": "VSCode",
   "vim_mode": false,
