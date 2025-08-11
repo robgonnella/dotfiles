@@ -67,7 +67,15 @@
     "toml": true,
     "vscode-dark-modern": true
   },
+  "format_on_save": "on",
   "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "check": {
+          "command": "clippy"
+        }
+      }
+    },
     "vtsls": {
       "settings": {
         "javascript": {
