@@ -4,9 +4,7 @@
 
 .z/zdata
 
-Aptfile.sh
 Brewfile
-Snapfile.sh
 README.md
 
 {{- if ne .enable_ssh_config "yes" }}
