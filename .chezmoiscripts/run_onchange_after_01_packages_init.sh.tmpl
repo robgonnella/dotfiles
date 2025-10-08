@@ -15,57 +15,9 @@ log() {
 log "Importing shell history to atuin"
 atuin import auto
 
-# install python
-if ! command -v python >/dev/null 2>&1; then
-    log "Installing python via mise"
-    mise use --global python
-fi
-
-# configure poetry plugin for oh-my-zsh
-if [ ! -d $HOME/.oh-my-zsh/plugins/poetry ]; then
-    log "Configuring poetry plugin for oh-my-zsh"
-    mkdir -p $HOME/.oh-my-zsh/plugins/poetry
-    poetry completions zsh >$HOME/.oh-my-zsh/plugins/poetry/_poetry
-fi
-
-# install node
-if ! command -v node >/dev/null 2>&1; then
-    log "Installing node via mise"
-    mise use --global node
-fi
-
-# install terraform
-if ! command -v terraform >/dev/null 2>&1; then
-    log "Installing terraform via mise"
-    mise use --global terraform@1.7.4
-fi
-
-# install deno
-if ! command -v deno >/dev/null 2>&1; then
-    log "Installing deno via mise"
-    mise use --global deno
-fi
-
-# java setup
-if ! java --version >/dev/null 2>&1; then
-    log "Install java openjdk17 via mise"
-    mise use --global java@openjdk-17
-fi
-
-# install golang
-if ! command -v go >/dev/null 2>&1; then
-    log "Installing golang via mise"
-    mise use --global go
-fi
-
-# install rust
-if ! command -v rustc >/dev/null 2>&1; then
-    log "Installing rust via mise"
-    mise use --global rust
-fi
-
 log "Activating mise for rest of tooling setup"
 eval "$(mise activate zsh)"
+mise install
 
 if ! cargo binstall --help >/dev/null 2>&1; then
     log "Installing cargo binstall"
@@ -96,12 +48,6 @@ if ! helm plugin list | grep helm-git >/dev/null 2>&1; then
     helm plugin install https://github.com/aslafy-z/helm-git
 fi
 
-# install yazi plugins
-if ! ya pack --list | grep yazi-rs/plugins:git >/dev/null 2>&1; then
-    log "Installing yazi git plugin"
-    ya pack -a yazi-rs/plugins:git
-fi
-
 # install language servers and formatters
 log "Installing language servers and formatters"
 go install mvdan.cc/sh/v3/cmd/shfmt@latest
@@ -109,15 +55,11 @@ go install github.com/lasorda/protobuf-language-server@latest
 go install github.com/go-delve/delve/cmd/dlv@latest
 go install golang.org/x/tools/gopls@latest
 
-# TODO update vscode-langservers-extracted once below issue is resolved
-# https://github.com/helix-editor/helix/pull/11315
 npm i -g bash-language-server \
-    vscode-langservers-extracted@4.8.0 \
+    vscode-langservers-extracted \
     @microsoft/compose-language-service \
     @prisma/language-server
 
 pipx install "python-lsp-server[all]" black
-
-cargo binstall -y --git 'https://github.com/feel-ix-343/markdown-oxide' markdown-oxide
 
 log 'Setup Complete'
