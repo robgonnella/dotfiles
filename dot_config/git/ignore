@@ -117,3 +117,8 @@ scratch/
 scratch.md
 *.scratch.md
 .obsidian/
+
+**/.claude/settings.local.json
+
+CLAUDE.md
+.claude/
