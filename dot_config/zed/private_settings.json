@@ -1,23 +1,29 @@
 {
+  "diff_view_style": "unified",
   "redact_private_values": true,
   "when_closing_with_no_tabs": "keep_window_open",
   "cli_default_open_behavior": "existing_window",
   "project_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "outline_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "collaboration_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "git_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "agent_servers": {
     "claude-acp": {
-      "type": "registry"
-    }
+      "default_config_options": {
+        "effort": "high",
+        "model": "opus[1m]",
+        "mode": "auto",
+      },
+      "type": "registry",
+    },
   },
   "tab_size": 2,
   "ui_font_size": 14.0,
@@ -35,63 +41,117 @@
         "terminal": {
           "always_allow": [
             {
-              "pattern": "git diff"
+              "pattern": "git diff",
             },
             {
-              "pattern": "git log"
+              "pattern": "git log",
             },
             {
-              "pattern": "git show"
+              "pattern": "git show",
             },
             {
-              "pattern": "cargo build"
+              "pattern": "cargo build",
             },
             {
-              "pattern": "cargo test"
+              "pattern": "cargo test",
             },
             {
-              "pattern": "cargo clippy"
+              "pattern": "cargo clippy",
             },
             {
-              "pattern": "grep"
+              "pattern": "grep",
             },
             {
-              "pattern": "cargo fmt"
+              "pattern": "cargo fmt",
             },
             {
-              "pattern": "head"
+              "pattern": "head",
             },
             {
-              "pattern": "tail"
-            }
+              "pattern": "tail",
+            },
           ],
           "always_deny": [
             {
-              "pattern": "sudo"
+              "pattern": "git clean",
             },
             {
-              "pattern": "su"
-            }
-          ]
-        }
-      }
-    }
+              "pattern": "git commit",
+            },
+            {
+              "pattern": "git cherry-pick",
+            },
+            {
+              "pattern": "git apply",
+            },
+            {
+              "pattern": "git stash",
+            },
+            {
+              "pattern": "git revert",
+            },
+            {
+              "pattern": "git rebase",
+            },
+            {
+              "pattern": "git merge",
+            },
+            {
+              "pattern": "git push",
+            },
+            {
+              "pattern": "git checkout",
+            },
+            {
+              "pattern": "git reset",
+            },
+            {
+              "pattern": "git restore",
+            },
+            {
+              "pattern": "git switch",
+            },
+            {
+              "pattern": "kubectl",
+            },
+            {
+              "pattern": "helmfile",
+            },
+            {
+              "pattern": "helm",
+            },
+            {
+              "pattern": "aws",
+            },
+            {
+              "pattern": "releasaurus",
+            },
+            {
+              "pattern": "sudo",
+            },
+            {
+              "pattern": "su",
+            },
+          ],
+        },
+      },
+    },
   },
   "base_keymap": "VSCode",
   "show_whitespaces": "all",
   "theme": {
     "light": "Catppuccin Latte",
-    "dark": "VSCode Dark Modern"
+    "dark": "VSCode Dark Modern",
   },
   "icon_theme": {
     "light": "Catppuccin Latte",
-    "dark": "Catppuccin Mocha"
+    "dark": "Catppuccin Mocha",
   },
   "wrap_guides": [80],
   "file_types": {
     "Helm": ["**/helmfile.d/**/*.yaml", "**/*.gotmpl", "**/*.tmpl"],
     "Dockerfile": ["Dockerfile*"],
-    "JSON": [".prettierrc"]
+    "JSON": [".prettierrc"],
   },
   "auto_install_extensions": {
     "catppuccin": true,
@@ -117,30 +177,30 @@
     "terraform": true,
     "tombi": true,
     "toml": true,
-    "vscode-dark-modern": true
+    "vscode-dark-modern": true,
   },
   "format_on_save": "on",
   "lsp": {
     "rust-analyzer": {
       "initialization_options": {
         "check": {
-          "command": "clippy"
-        }
-      }
+          "command": "clippy",
+        },
+      },
     },
     "vtsls": {
       "settings": {
         "javascript": {
           "preferences": {
-            "importModuleSpecifier": "relative"
-          }
+            "importModuleSpecifier": "relative",
+          },
         },
         "typescript": {
           "preferences": {
-            "importModuleSpecifier": "relative"
-          }
-        }
-      }
-    }
-  }
+            "importModuleSpecifier": "relative",
+          },
+        },
+      },
+    },
+  },
 }

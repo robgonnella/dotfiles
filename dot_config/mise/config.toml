@@ -1,6 +1,6 @@
 [tools]
 go = "latest"
-kubie = "0.26.0"
+kubie = "latest"
 rust = "latest"
 
 [settings]

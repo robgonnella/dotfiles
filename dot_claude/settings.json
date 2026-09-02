@@ -1,0 +1,76 @@
+{
+  "theme": "dark",
+  "tui": "fullscreen",
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": false,
+    "filesystem": {
+      "denyRead": [
+        "~",
+        "/usr/local/bin/aws",
+        "/usr/local/bin/helm",
+        "/usr/local/bin/kubectl",
+        "/usr/local/bin/releasaurus",
+        "/opt/homebrew/bin/aws",
+        "/opt/homebrew/bin/kubectl",
+        "/opt/homebrew/bin/helm",
+        "/opt/homebrew/bin/releasaurus",
+        "~/.cargo/bin/releasaurus",
+        "~/.local/share/mise/installs/aws",
+        "~/.local/share/mise/installs/helm",
+        "~/.local/share/mise/installs/kubectl",
+        "~/.local/share/mise/installs/releasaurus",
+        "**/*/.env",
+        "**/*/*.env"
+      ],
+      "allowRead": [
+        "~/.config/git",
+        "~/.local",
+        "~/go",
+        "~/.cargo",
+        "~/.rustup",
+        "~/code"
+      ],
+      "allowWrite": ["/tmp"],
+      "allowManagedReadPathsOnly": true
+    }
+  },
+  "permissions": {
+    "deny": [
+      "Bash(git clean:*)",
+      "Bash(git commit:*)",
+      "Bash(git cherry-pick:*)",
+      "Bash(git apply:*)",
+      "Bash(git stash:*)",
+      "Bash(git revert:*)",
+      "Bash(git rebase:*)",
+      "Bash(git merge:*)",
+      "Bash(git push:*)",
+      "Bash(git checkout:*)",
+      "Bash(git reset:*)",
+      "Bash(git restore:*)",
+      "Bash(git switch:*)",
+      "Bash(kubectl:*)",
+      "Bash(helmfile:*)",
+      "Bash(helm:*)",
+      "Bash(aws:*)",
+      "Bash(releasaurus:*)",
+      "Bash(sudo:*)",
+      "Bash(su:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/robert/.claude/hooks/deny-commands.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
