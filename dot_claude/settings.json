@@ -28,11 +28,12 @@
         "~/.config/git",
         "~/.local",
         "~/go",
+        "~/Library/Caches/go-build",
         "~/.cargo",
         "~/.rustup",
         "~/code"
       ],
-      "allowWrite": ["/tmp"],
+      "allowWrite": ["/tmp", "~/go/pkg/mod", "~/Library/Caches/go-build"],
       "allowManagedReadPathsOnly": true
     }
   },
