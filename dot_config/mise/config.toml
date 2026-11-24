@@ -27,6 +27,7 @@ gitui = "latest"
 ripgrep = "latest"
 tmux = "latest"
 vim = "latest"
+lima = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = []
