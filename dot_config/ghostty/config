@@ -1,2 +1,3 @@
 theme = "Gitlab Dark Grey"
 font-size = 13.5
+shell-integration-features = ssh-env,ssh-terminfo

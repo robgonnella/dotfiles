@@ -12,6 +12,11 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end }}
 
 ########
+# mise
+########
+eval "$(mise activate zsh)"
+
+########
 # set default vars
 ########
 export EDITOR={{ .editor_launch_cmd }}
@@ -38,8 +43,3 @@ eval "$(atuin init zsh)"
 ########
 _Z_DATA="$HOME/.z/zdata"
 source ~/.z/z.sh
-
-########
-# mise
-########
-eval "$(mise activate zsh)"

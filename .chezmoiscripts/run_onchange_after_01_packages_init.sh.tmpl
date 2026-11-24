@@ -2,6 +2,8 @@
 
 # Ensure this script runs on Brewfile.tmpl changes by including a hash of its file contents:
 # Brewfile.tmpl: {{ include ".chezmoitemplates/Brewfile.tmpl" | sha256sum }}
+# Ensure this script runs on mise.toml changes by including a hash of its file contents:
+# mise/config.toml: {{ include "dot_config/mise/config.toml" | sha256sum }}
 
 source $HOME/.zshrc
 

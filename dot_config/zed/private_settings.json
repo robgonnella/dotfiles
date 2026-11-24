@@ -1,4 +1,7 @@
 {
+  "context_servers": {
+    
+  },
   "diff_view_style": "unified",
   "redact_private_values": true,
   "when_closing_with_no_tabs": "keep_window_open",
@@ -18,8 +21,8 @@
   "agent_servers": {
     "claude-acp": {
       "default_config_options": {
-        "effort": "high",
-        "model": "claude-fable-5-1[1m]",
+        "effort": "medium",
+        "model": "opus",
         "mode": "plan",
       },
       "type": "registry",

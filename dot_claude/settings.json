@@ -1,42 +1,4 @@
 {
-  "theme": "dark",
-  "tui": "fullscreen",
-  "sandbox": {
-    "enabled": true,
-    "autoAllowBashIfSandboxed": true,
-    "allowUnsandboxedCommands": false,
-    "filesystem": {
-      "denyRead": [
-        "~",
-        "/usr/local/bin/aws",
-        "/usr/local/bin/helm",
-        "/usr/local/bin/kubectl",
-        "/usr/local/bin/releasaurus",
-        "/opt/homebrew/bin/aws",
-        "/opt/homebrew/bin/kubectl",
-        "/opt/homebrew/bin/helm",
-        "/opt/homebrew/bin/releasaurus",
-        "~/.cargo/bin/releasaurus",
-        "~/.local/share/mise/installs/aws",
-        "~/.local/share/mise/installs/helm",
-        "~/.local/share/mise/installs/kubectl",
-        "~/.local/share/mise/installs/releasaurus",
-        "**/*/.env",
-        "**/*/*.env"
-      ],
-      "allowRead": [
-        "~/.config/git",
-        "~/.local",
-        "~/go",
-        "~/Library/Caches/go-build",
-        "~/.cargo",
-        "~/.rustup",
-        "~/code"
-      ],
-      "allowWrite": ["/tmp", "~/go/pkg/mod", "~/Library/Caches/go-build"],
-      "allowManagedReadPathsOnly": true
-    }
-  },
   "permissions": {
     "deny": [
       "Bash(git clean:*)",
@@ -73,5 +35,48 @@
         ]
       }
     ]
-  }
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": false,
+    "filesystem": {
+      "allowWrite": [
+        "/tmp",
+        "~/go/pkg/mod",
+        "~/Library/Caches/go-build"
+      ],
+      "denyRead": [
+        "~",
+        "/usr/local/bin/aws",
+        "/usr/local/bin/helm",
+        "/usr/local/bin/kubectl",
+        "/usr/local/bin/releasaurus",
+        "/opt/homebrew/bin/aws",
+        "/opt/homebrew/bin/kubectl",
+        "/opt/homebrew/bin/helm",
+        "/opt/homebrew/bin/releasaurus",
+        "~/.cargo/bin/releasaurus",
+        "~/.local/share/mise/installs/aws",
+        "~/.local/share/mise/installs/helm",
+        "~/.local/share/mise/installs/kubectl",
+        "~/.local/share/mise/installs/releasaurus",
+        "**/*/.env",
+        "**/*/*.env"
+      ],
+      "allowRead": [
+        "~/.config/git",
+        "~/.local",
+        "~/go",
+        "~/Library/Caches/go-build",
+        "~/.cargo",
+        "~/.rustup",
+        "~/code"
+      ],
+      "allowManagedReadPathsOnly": true
+    }
+  },
+  "tui": "fullscreen",
+  "theme": "dark",
+  "switchModelsOnFlag": true
 }

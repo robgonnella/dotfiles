@@ -1,7 +1,32 @@
 [tools]
+colima = "latest"
+docker-cli = "latest"
+docker-compose = { version = "latest", postinstall = "mkdir -p ${DOCKER_CONFIG:-$HOME/.docker}/cli-plugins && ln -sf $(mise which docker-compose 2>/dev/null || mise which docker-cli-plugin-docker-compose) ${DOCKER_CONFIG:-$HOME/.docker}/cli-plugins/docker-compose" }
+"aqua:docker/buildx" = { version = "latest", postinstall = "mkdir -p ${DOCKER_CONFIG:-$HOME/.docker}/cli-plugins && ln -sf $(mise which docker-buildx 2>/dev/null || mise which docker-cli-plugin-docker-buildx) ${DOCKER_CONFIG:-$HOME/.docker}/cli-plugins/docker-buildx" }
+glab = "latest"
 go = "latest"
 kubie = "latest"
+poetry = "latest"
+taplo = "latest"
+kubectl = "latest"
+starship = "latest"
+awscli = "latest"
+helix = "latest"
+helm = "latest"
+helmfile = "latest"
+just = "latest"
+k9s = "latest"
 rust = "latest"
+jq = "latest"
+yq = "latest"
+zellij = "latest"
+pipx = "latest"
+age = "latest"
+atuin = "latest"
+gitui = "latest"
+ripgrep = "latest"
+tmux = "latest"
+vim = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = []
